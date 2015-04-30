@@ -10,7 +10,7 @@ import java.lang.ref.SoftReference;
 
 /**
  * Created by A Shuai on 2015/4/29.
- * ×ÓÀàÈôÎªActivityµÄÄÚ²¿Àà£¬Ğè×÷Îª¾²Ì¬ÄÚ²¿Àà¡£Èç¹û²»ÊÇ¾²Ì¬ÄÚ²¿ÀàÔò¼ÇµÃÈ¡Ïû¹ã²¥×¢²áÆ÷
+ * å­ç±»è‹¥ä¸ºActivityçš„å†…éƒ¨ç±»ï¼Œéœ€ä½œä¸ºé™æ€å†…éƒ¨ç±»ã€‚å¦‚æœä¸æ˜¯é™æ€å†…éƒ¨ç±»åˆ™è®°å¾—å–æ¶ˆå¹¿æ’­æ³¨å†Œå™¨
  */
 public abstract class AbsBroadcastReceiver<T extends Activity> extends BroadcastReceiver {
 
@@ -22,7 +22,7 @@ public abstract class AbsBroadcastReceiver<T extends Activity> extends Broadcast
     }
 
     /**
-     * ×ÓÀà²»¿É¸²Ğ´Õâ¸ö·½·¨
+     * å­ç±»ä¸å¯è¦†å†™è¿™ä¸ªæ–¹æ³•
      *
      * @param context
      * @param intent
@@ -36,11 +36,11 @@ public abstract class AbsBroadcastReceiver<T extends Activity> extends Broadcast
     }
 
     /**
-     * ×ÓÀàĞè¸²Ğ´Õâ¸ö·½·¨¶Ô¹ã²¥½øĞĞ´¦Àí
+     * å­ç±»éœ€è¦†å†™è¿™ä¸ªæ–¹æ³•å¯¹å¹¿æ’­è¿›è¡Œå¤„ç†
      *
      * @param mActivity
      * @param intent
-     * @param mBundle   ¿ÉÎªnull
+     * @param mBundle   å¯ä¸ºnull
      */
     public abstract void onReceive(T mActivity, Intent intent, Bundle mBundle);
 

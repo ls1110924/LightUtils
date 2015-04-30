@@ -9,8 +9,8 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created by A Shuai on 2015/4/29.
- * ×ÓÀàÈç¹û×÷ÎªActivityµÄÄÚ²¿Àà£¬ÔòĞèÊ¹ÓÃ¾²Ì¬ÄÚ²¿Àà£¬
- * ¸²Ğ´onMessageExecute·½·¨½øĞĞ´¦ÀíÏûÏ¢¼´¿É
+ * å­ç±»å¦‚æœä½œä¸ºActivityçš„å†…éƒ¨ç±»ï¼Œåˆ™éœ€ä½¿ç”¨é™æ€å†…éƒ¨ç±»ï¼Œ
+ * è¦†å†™onMessageExecuteæ–¹æ³•è¿›è¡Œå¤„ç†æ¶ˆæ¯å³å¯
  */
 public abstract class AbsHandler<T extends Activity> extends Handler {
 
@@ -30,13 +30,12 @@ public abstract class AbsHandler<T extends Activity> extends Handler {
     }
 
     /**
-     * Ö÷ÒªµÄÏûÏ¢´¦ÀíÂß¼­
+     * ä¸»è¦çš„æ¶ˆæ¯å¤„ç†é€»è¾‘
      *
      * @param mActivity
      * @param msg
-     * @param mBundle   ¿ÉÒÔÎªnull
+     * @param mBundle   å¯ä»¥ä¸ºnull
      */
     protected abstract void handleMessage(T mActivity, Message msg, Bundle mBundle);
-
 
 }

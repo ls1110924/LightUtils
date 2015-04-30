@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">LightUtils</string>
+
+    <!-- Title of the navigation drawer, used by accessibility to announce state changes. -->
+    <string name="lightutils_drawer_title">Navigation</string>
+
+    <!-- Description of the icon that opens the navigation drawer, used by accessibility. -->
+    <string name="lightutils_drawer_open">Open navigation drawer</string>
+
+    <!-- Description of the icon that closes the navigation drawer, used by accessibility. -->
+    <string name="lightutils_drawer_close">Close navigation drawer</string>
+
+
 </resources>
