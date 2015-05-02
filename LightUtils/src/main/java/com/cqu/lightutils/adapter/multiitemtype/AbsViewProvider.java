@@ -1,37 +1,24 @@
-package com.cqu.lightutils.adapter;
+package com.cqu.lightutils.adapter.multiitemtype;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 import com.cqu.lightutils.adapter.viewholder.BasicViewHolder;
 
 /**
  * Created by A Shuai on 2015/5/2.
- * 此类为普通Adapter类的模板类，适合于单一布局类型的adapter
+ * 对{@link com.cqu.lightutils.adapter.multiitemtype.IViewProvider}接口进行扩展的一个模板类
+ * 是对AdapterView中某个类型的ItemView的处理
  */
-public abstract class AbsBasicAdapter<T extends BasicViewHolder> extends BaseAdapter {
+public abstract class AbsViewProvider<T extends BasicViewHolder, P extends IItemBean, Q extends OnGeneralListener>
+        implements IViewProvider<P, Q> {
 
-    protected final Context mContext;
-    protected final LayoutInflater mInflater;
-
-    protected final Resources mResources;
-
-    public AbsBasicAdapter(Context mContext) {
-        this.mContext = mContext;
-        mInflater = LayoutInflater.from(mContext);
-        mResources = mContext.getResources();
-    }
-
-    @SuppressWarnings("unchecked")
     @Override
-    public final View getView(int position, View convertView, ViewGroup parent) {
+    public final View getItemView(int position, View convertView, ViewGroup parent, LayoutInflater mInflater, P mData, Q mGeneralListener) {
         T mViewHolder;
         if (convertView == null) {
-            convertView = inflaterView(parent);
+            convertView = inflaterView(mInflater, parent);
             if (convertView == null) {
                 throw new NullPointerException();
             }
@@ -46,17 +33,18 @@ public abstract class AbsBasicAdapter<T extends BasicViewHolder> extends BaseAda
             mViewHolder = (T) convertView.getTag();
         }
         mViewHolder.index = position;
-        bindContent(position, mViewHolder);
+        bindContent(position, mViewHolder, mData, mGeneralListener);
         return convertView;
     }
 
     /**
-     * 返回Adapter提供的视图类，LayoutInflate对象使用{@link com.cqu.lightutils.adapter.AbsBasicAdapter#mInflater}
+     * 返回Adapter提供的视图类
      *
+     * @param mInflater
      * @param parent
      * @return 不可为空
      */
-    protected abstract View inflaterView(ViewGroup parent);
+    protected abstract View inflaterView(LayoutInflater mInflater, ViewGroup parent);
 
     /**
      * 子类请务必返回一个BasicViewHolderc的子类对象{@link com.cqu.lightutils.adapter.viewholder.BasicViewHolder}
@@ -79,6 +67,14 @@ public abstract class AbsBasicAdapter<T extends BasicViewHolder> extends BaseAda
      * @param position
      * @param mViewHolder
      */
-    protected abstract void bindContent(int position, T mViewHolder);
+    /**
+     * 根据提供的当前item的索引位置，数据bean和回调监听器，自行填充ViewHolder中的内容视图控件的内容
+     *
+     * @param position
+     * @param mViewHolder
+     * @param mData
+     * @param mGeneralListener
+     */
+    protected abstract void bindContent(int position, T mViewHolder, P mData, Q mGeneralListener);
 
 }

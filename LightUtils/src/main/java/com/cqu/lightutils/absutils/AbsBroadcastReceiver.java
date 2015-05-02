@@ -1,4 +1,4 @@
-package com.cqu.lightutils;
+package com.cqu.lightutils.absutils;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

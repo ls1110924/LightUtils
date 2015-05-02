@@ -15,16 +15,16 @@ public abstract class BaseDynamicFragment extends BaseFragment {
 
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (mRootView==null){
-            mRootView = onInflaterRootView(inflater,container,savedInstanceState);
-            if (mRootView==null){
+        if (mRootView == null) {
+            mRootView = onInflaterRootView(inflater, container, savedInstanceState);
+            if (mRootView == null) {
                 throw new NullPointerException("the root view should not be null");
             }
 
             onFindViews(mRootView);
         } else {
-            ViewGroup mRootParent = (ViewGroup)mRootView.getParent();
-            if (mRootParent!=null){
+            ViewGroup mRootParent = (ViewGroup) mRootView.getParent();
+            if (mRootParent != null) {
                 mRootParent.removeView(mRootView);
             }
         }

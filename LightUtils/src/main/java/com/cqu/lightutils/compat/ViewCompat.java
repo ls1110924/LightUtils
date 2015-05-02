@@ -8,7 +8,7 @@ import android.view.View;
  * Created by A Shuai on 2015/4/30.
  */
 @SuppressWarnings("deprecation")
-public class ViewCompat {
+public final class ViewCompat {
 
     private ViewCompat() {
     }

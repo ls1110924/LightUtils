@@ -7,6 +7,9 @@ package com.cqu.lightutils.adapter.viewholder;
  */
 public abstract class BasicViewHolder {
 
+    /**
+     * AdapterView中单个ItemView的索引
+     */
     public int index;
 
 }

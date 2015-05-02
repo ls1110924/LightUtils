@@ -70,7 +70,7 @@ public abstract class BaseFragment extends Fragment {
      *
      * @param inflater
      * @param container
-     * @param savedInstanceState
+     * @param savedInstanceState 有可能为空，使用之前请先进行判断
      * @return 不可为空
      */
     protected abstract View onInflaterRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);

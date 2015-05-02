@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 /**
  * Created by A Shuai on 2015/4/30.
  */
-public abstract class BaseNonReuseFragment extends BaseFragment{
+public abstract class BaseNonReuseFragment extends BaseFragment {
 
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View mRootView = onInflaterRootView(inflater,container,savedInstanceState);
-        if (mRootView==null){
+        View mRootView = onInflaterRootView(inflater, container, savedInstanceState);
+        if (mRootView == null) {
             throw new NullPointerException("the root view should not be null");
         }
 

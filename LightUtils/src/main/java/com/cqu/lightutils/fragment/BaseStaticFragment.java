@@ -7,17 +7,20 @@ import android.view.ViewGroup;
 
 /**
  * Created by A Shuai on 2015/4/30.
+ * 此Fragment适用于视图内容为静态且占用内存不会特别多的情况，
+ * 所以此Fragment只会初始化一遍内容视图，下一次调用{@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}方法
+ * 就会复用上一次的内容视图
  */
-public abstract class BaseStaticFragment extends BaseFragment{
+public abstract class BaseStaticFragment extends BaseFragment {
 
     //此Fragment提供的视图的根视图
     private View mRootView;
 
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (mRootView==null){
-            mRootView = onInflaterRootView(inflater,container,savedInstanceState);
-            if (mRootView==null){
+        if (mRootView == null) {
+            mRootView = onInflaterRootView(inflater, container, savedInstanceState);
+            if (mRootView == null) {
                 throw new NullPointerException("the root view should not be null");
             }
 
@@ -25,8 +28,8 @@ public abstract class BaseStaticFragment extends BaseFragment{
 
             onBindContent();
         } else {
-            ViewGroup mRootParent = (ViewGroup)mRootView.getParent();
-            if (mRootParent!=null){
+            ViewGroup mRootParent = (ViewGroup) mRootView.getParent();
+            if (mRootParent != null) {
                 mRootParent.removeView(mRootView);
             }
         }

@@ -1,11 +1,11 @@
-package com.cqu.lightutils;
+package com.cqu.lightutils.absutils;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import java.lang.ref.WeakReference;
+import java.lang.ref.SoftReference;
 
 /**
  * Created by A Shuai on 2015/4/29.
@@ -14,10 +14,10 @@ import java.lang.ref.WeakReference;
  */
 public abstract class AbsHandler<T extends Activity> extends Handler {
 
-    private final WeakReference<T> mActivityRef;
+    private final SoftReference<T> mActivityRef;
 
     public AbsHandler(T mActivity) {
-        mActivityRef = new WeakReference<T>(mActivity);
+        mActivityRef = new SoftReference<T>(mActivity);
     }
 
     @Override
