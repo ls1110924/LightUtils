@@ -172,8 +172,21 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
     /**
      * 子类需对此方法进行覆写，进行数据处理
      * 注意:此方法的执行回调位于子线程中，请务必不要更新UI线程中视图控件
+     * 子类不可最好不要手动调用本方法，子类可在此方法中进行耗时过程的处理，
+     * 如果进行了耗时处理请务必将返回值置为true，表示数据初始化完毕，可以进行UI加载
+     * 如果子类在此进行了异步处理，请将返回值置为false，表示此方法的回调并没有真正完成数据初始化，
+     * 不可进行UI加载，此时子类应手动完成Handler事件发送，{@link #handlerDataLoadComplete()}方法
+     *
+     * @return
      */
-    protected abstract void onLoadedDataByAsyn();
+    protected abstract boolean onLoadedDataByAsyn();
+
+    /**
+     * 用于发送异步数据处理完成的回调
+     */
+    protected final void handlerDataLoadComplete() {
+        mHandler.sendEmptyMessage(ASYN_DATALOAD_COMPLETE);
+    }
 
     /**
      * 初始化未载入数据前的loading视图，子类若提供Loading视图可自行覆写并务必返回
@@ -331,8 +344,9 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
             BaseLazyAsynLoadFragment mFragment = getFragment();
             if (mFragment == null)
                 return;
-            mFragment.onLoadedDataByAsyn();
-            mFragment.mHandler.sendEmptyMessage(ASYN_DATALOAD_COMPLETE);
+            if (mFragment.onLoadedDataByAsyn()) {
+                mFragment.handlerDataLoadComplete();
+            }
         }
 
         private final BaseLazyAsynLoadFragment getFragment() {
@@ -345,12 +359,24 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
      */
     private enum AsynTaskState {
 
+        /**
+         * 初始化，应该进行异步数据加载，应继续使用Loading布局
+         */
         INIT,
 
+        /**
+         * 处理中，继续使用Loading布局
+         */
         PROCESSING,
 
+        /**
+         * 处理完成，可以加载UI，执行加载内容布局
+         */
         RPOCESSED,
 
+        /**
+         * 加载完成，继续使用内容布局
+         */
         COMPLETE
 
     }

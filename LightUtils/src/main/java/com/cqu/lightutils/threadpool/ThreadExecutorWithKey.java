@@ -5,15 +5,14 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.cqu.lightutils.constants.LightUtilsConstants.DEFAULT_THREADPOOL_SIZE;
+
 /**
  * Created by A Shuai on 2015/5/2.
  * 带有任务ID的线程池，相同ID的任务只会在线程池中存在一份
  */
 public final class ThreadExecutorWithKey {
 
-    private static final int THREAD_POOL_SIZE = 3;
-
-    
     private final Object lock;
 
     /* 线程池 */
@@ -22,7 +21,7 @@ public final class ThreadExecutorWithKey {
     private final Map<String, Object> currentTastInThreadPool;
 
     public ThreadExecutorWithKey() {
-        this(THREAD_POOL_SIZE);
+        this(DEFAULT_THREADPOOL_SIZE);
     }
 
     public ThreadExecutorWithKey(int mSize) {

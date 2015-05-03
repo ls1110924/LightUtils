@@ -3,26 +3,22 @@ package com.cqu.lightutils.threadpool;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import static com.cqu.lightutils.constants.LightUtilsConstants.DEFAULT_THREADPOOL_SIZE;
 
 /**
- * Created by A Shuai on 2015/5/2.
- * 用于管理一组线程池的管理类
- * 可根据提供的ID获得指定的线程池对象
- * 此线程池对象使用完毕后请调用{@link #shutdown(String)}方法进行关闭
+ * Created by A Shuai on 2015/5/3.
+ * 管理带有任务ID的线程池管理类
  */
-public final class ThreadExecutorManager {
+public final class ThreadExecutorManagerWithKey {
 
-    private static ThreadExecutorManager mInstance;
+    private static ThreadExecutorManagerWithKey mInstance;
 
-    public static ThreadExecutorManager getInstance() {
+    public static ThreadExecutorManagerWithKey getInstance() {
         if (mInstance == null) {
-            synchronized (ThreadExecutorManager.class) {
+            synchronized (ThreadExecutorManagerWithKey.class) {
                 if (mInstance == null) {
-                    mInstance = new ThreadExecutorManager();
+                    mInstance = new ThreadExecutorManagerWithKey();
                 }
             }
         }
@@ -31,11 +27,11 @@ public final class ThreadExecutorManager {
 
     private int mThreadPoolSize;
 
-    private final HashMap<String, ExecutorService> mExecutors;
+    private final HashMap<String, ThreadExecutorWithKey> mExecutors;
 
-    private ThreadExecutorManager() {
+    private ThreadExecutorManagerWithKey() {
         mThreadPoolSize = DEFAULT_THREADPOOL_SIZE;
-        mExecutors = new HashMap<String, ExecutorService>();
+        mExecutors = new HashMap<String, ThreadExecutorWithKey>();
     }
 
     /**
@@ -44,13 +40,13 @@ public final class ThreadExecutorManager {
      * @param mExecutorName 要获取的线程池对象ID
      * @return
      */
-    public ExecutorService getExecutor(String mExecutorName) {
-        ExecutorService mService = mExecutors.get(mExecutorName);
+    public ThreadExecutorWithKey getExecutor(String mExecutorName) {
+        ThreadExecutorWithKey mService = mExecutors.get(mExecutorName);
         if (mService == null) {
             synchronized (this) {
                 mService = mExecutors.get(mExecutorName);
                 if (mService == null) {
-                    mService = Executors.newFixedThreadPool(mThreadPoolSize);
+                    mService = new ThreadExecutorWithKey(mThreadPoolSize);
                 }
                 mExecutors.put(mExecutorName, mService);
             }
@@ -64,9 +60,9 @@ public final class ThreadExecutorManager {
      * @param mExecutorName
      * @param mTask
      */
-    public void execute(String mExecutorName, Runnable mTask) {
-        ExecutorService mService = getExecutor(mExecutorName);
-        mService.execute(mTask);
+    public void execute(String mExecutorName, String mTaskName, Runnable mTask) {
+        ThreadExecutorWithKey mService = getExecutor(mExecutorName);
+        mService.execute(mTaskName, mTask);
     }
 
     /**
@@ -75,7 +71,7 @@ public final class ThreadExecutorManager {
      * @param mExecutorName
      */
     public void shutdown(String mExecutorName) {
-        ExecutorService mService = mExecutors.get(mExecutorName);
+        ThreadExecutorWithKey mService = mExecutors.get(mExecutorName);
         if (mService == null)
             return;
         mService.shutdown();
@@ -88,21 +84,19 @@ public final class ThreadExecutorManager {
     public void shutdownAllExecutor() {
 
         synchronized (this) {
-            Set<Map.Entry<String, ExecutorService>> mExeSet = mExecutors.entrySet();
-            for (Map.Entry<String, ExecutorService> mSet : mExeSet) {
-                ExecutorService mService = mSet.getValue();
+            Set<Map.Entry<String, ThreadExecutorWithKey>> mExeSet = mExecutors.entrySet();
+            for (Map.Entry<String, ThreadExecutorWithKey> mSet : mExeSet) {
+                ThreadExecutorWithKey mService = mSet.getValue();
                 mService.shutdown();
             }
             mExecutors.clear();
         }
     }
 
-    /**
-     * 设置线程池默认大小
-     * 推荐3-5之间即可
-     *
-     * @param mThreadPoolSize
-     */
+    public int getThreadPoolSize() {
+        return mThreadPoolSize;
+    }
+
     public void setThreadPoolSize(int mThreadPoolSize) {
         this.mThreadPoolSize = mThreadPoolSize;
     }

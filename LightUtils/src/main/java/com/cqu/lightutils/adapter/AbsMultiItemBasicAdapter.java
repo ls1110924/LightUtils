@@ -79,7 +79,7 @@ public abstract class AbsMultiItemBasicAdapter<Q extends OnGeneralListener> exte
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public final View getView(int position, View convertView, ViewGroup parent) {
         IItemBean mItemBean = mItemBeanList.get(position);
         String mClassName = mItemBean.getViewProviderClass().getName();
 
@@ -90,6 +90,7 @@ public abstract class AbsMultiItemBasicAdapter<Q extends OnGeneralListener> exte
                 mProviderMap.put(mClassName, mProvider);
             } catch (Exception e) {
                 e.printStackTrace();
+                throw new IllegalStateException("");
             }
 
         }

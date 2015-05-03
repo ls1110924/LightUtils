@@ -9,6 +9,7 @@ import java.lang.ref.SoftReference;
 
 /**
  * Created by A Shuai on 2015/5/2.
+ * 适用于Fragment的Handler的抽象模板类
  */
 public abstract class AbsFragmentHandler<T extends Fragment> extends Handler{
 

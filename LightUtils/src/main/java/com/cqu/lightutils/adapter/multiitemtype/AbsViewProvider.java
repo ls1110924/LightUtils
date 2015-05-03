@@ -15,7 +15,7 @@ public abstract class AbsViewProvider<T extends BasicViewHolder, P extends IItem
         implements IViewProvider<P, Q> {
 
     @Override
-    public final View getItemView(int position, View convertView, ViewGroup parent, LayoutInflater mInflater, P mData, Q mGeneralListener) {
+    public final View getItemView(int position, View convertView, ViewGroup parent, LayoutInflater mInflater, P mItemBean, Q mGeneralListener) {
         T mViewHolder;
         if (convertView == null) {
             convertView = inflaterView(mInflater, parent);
@@ -33,7 +33,7 @@ public abstract class AbsViewProvider<T extends BasicViewHolder, P extends IItem
             mViewHolder = (T) convertView.getTag();
         }
         mViewHolder.index = position;
-        bindContent(position, mViewHolder, mData, mGeneralListener);
+        bindContent(position, mViewHolder, mItemBean, mGeneralListener);
         return convertView;
     }
 
@@ -72,9 +72,9 @@ public abstract class AbsViewProvider<T extends BasicViewHolder, P extends IItem
      *
      * @param position
      * @param mViewHolder
-     * @param mData
+     * @param mItemBean
      * @param mGeneralListener
      */
-    protected abstract void bindContent(int position, T mViewHolder, P mData, Q mGeneralListener);
+    protected abstract void bindContent(int position, T mViewHolder, P mItemBean, Q mGeneralListener);
 
 }
