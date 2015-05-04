@@ -16,6 +16,12 @@ public abstract class BaseToolBarFragmentActivity extends BaseFragmentActivity {
 
     protected Toolbar mToolBar;
 
+    /**
+     * 不提供覆写{@link #onCreate(Bundle)}方法，若需覆写请覆写
+     * {@link #onCreateImpl(Bundle)}
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +34,21 @@ public abstract class BaseToolBarFragmentActivity extends BaseFragmentActivity {
         }
         onFindViews();
         onBindContent();
+        onCreateImpl(savedInstanceState);
 
     }
+
+    /**
+     * 初始化一些必要的参数值
+     * 子类可按需自行覆写
+     */
+    protected void onInitParameter() {
+    }
+
+    /**
+     * 设置布局
+     */
+    protected abstract void onSetContentView();
 
     /**
      * 子类需覆写此方法返回ToolBar的引用
@@ -37,6 +56,25 @@ public abstract class BaseToolBarFragmentActivity extends BaseFragmentActivity {
      * @return 不可为空
      */
     protected abstract Toolbar onFindToolBarView();
+
+    /**
+     * 查找必要的子视图控件
+     * 子类无需在这里继续查找Toolbar
+     */
+    protected abstract void onFindViews();
+
+    /**
+     * 将数据与视图进行绑定，以展示数据
+     */
+    protected abstract void onBindContent();
+
+    /**
+     * 用于替代{@link #onCreate(Bundle)}方法
+     *
+     * @param savedInstanceState
+     */
+    protected void onCreateImpl(Bundle savedInstanceState) {
+    }
 
     @Override
     protected void setStatusBarAndNavigationBarTheme(StatusBarThemeInterface mTheme) {

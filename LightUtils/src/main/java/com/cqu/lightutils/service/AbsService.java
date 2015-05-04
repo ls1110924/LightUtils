@@ -24,6 +24,14 @@ public abstract class AbsService extends Service {
     }
 
     @Override
+    public final int onStartCommand(Intent intent, int flags, int startId) {
+        onStartCommand(intent, intent.getExtras(), flags, startId);
+        return START_REDELIVER_INTENT;
+    }
+
+    protected abstract void onStartCommand(Intent intent, Bundle mBundle, int flags, int startId);
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
     }

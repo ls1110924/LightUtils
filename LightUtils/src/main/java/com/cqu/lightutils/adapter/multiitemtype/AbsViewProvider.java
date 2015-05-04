@@ -4,14 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cqu.lightutils.adapter.viewholder.BasicViewHolder;
+import com.cqu.lightutils.adapter.viewholder.AbsViewHolder;
 
 /**
  * Created by A Shuai on 2015/5/2.
  * 对{@link com.cqu.lightutils.adapter.multiitemtype.IViewProvider}接口进行扩展的一个模板类
  * 是对AdapterView中某个类型的ItemView的处理
  */
-public abstract class AbsViewProvider<T extends BasicViewHolder, P extends IItemBean, Q extends OnGeneralListener>
+public abstract class AbsViewProvider<T extends AbsViewHolder, P extends IItemBean, Q extends OnGeneralListener>
         implements IViewProvider<P, Q> {
 
     @Override
@@ -47,7 +47,7 @@ public abstract class AbsViewProvider<T extends BasicViewHolder, P extends IItem
     protected abstract View inflaterView(LayoutInflater mInflater, ViewGroup parent);
 
     /**
-     * 子类请务必返回一个BasicViewHolderc的子类对象{@link com.cqu.lightutils.adapter.viewholder.BasicViewHolder}
+     * 子类请务必返回一个BasicViewHolderc的子类对象{@link AbsViewHolder}
      *
      * @return 不可为空
      */

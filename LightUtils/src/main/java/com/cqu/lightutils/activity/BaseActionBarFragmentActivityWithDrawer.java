@@ -28,6 +28,12 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
 
     private BaseCommonCallbackListener mBaseCommonListener;
 
+    /**
+     * 不提供覆写{@link #onCreate(Bundle)}方法，若需覆写请覆写
+     * {@link #onCreateImpl(Bundle)}
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +59,7 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
                 R.string.lightutils_drawer_open, R.string.lightutils_drawer_close);
 
         onBindContent();
+        onCreateImpl(savedInstanceState);
 
     }
 
@@ -71,11 +78,41 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
     }
 
     /**
+     * 初始化一些必要的参数值
+     * 子类可按需自行覆写
+     */
+    protected void onInitParameter() {
+    }
+
+    /**
+     * 设置布局
+     */
+    protected abstract void onSetContentView();
+
+    /**
+     * 查找必要的子视图控件
+     */
+    protected abstract void onFindViews();
+
+    /**
      * 子类需覆写此方法返回子类的DrawerLayout
      *
      * @return 返回不可为空
      */
     protected abstract DrawerLayout onFindDrawerLayoutView();
+
+    /**
+     * 将数据与视图进行绑定，以展示数据
+     */
+    protected abstract void onBindContent();
+
+    /**
+     * 用于替代{@link #onCreate(Bundle)}方法
+     *
+     * @param savedInstanceState
+     */
+    protected void onCreateImpl(Bundle savedInstanceState) {
+    }
 
     /**
      * 子类可根据需要自行覆写此方法，表示对抽屉控件打开事件的监听

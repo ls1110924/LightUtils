@@ -11,4 +11,9 @@
     <string name="lightutils_drawer_close">Close navigation drawer</string>
 
 
+    <string name="lightutils_dialog_sure">确定</string>
+    <string name="lightutils_dialog_cancel">取消</string>
+    <string name="lightutils_dialog_close">关闭</string>
+
+
 </resources>

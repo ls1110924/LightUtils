@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/LightUtils.iml" filepath="$PROJECT_DIR$/LightUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/LightUtils/LightUtils-LightUtils.iml" filepath="$PROJECT_DIR$/LightUtils/LightUtils-LightUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/LightUtilsSample/LightUtilsSample.iml" filepath="$PROJECT_DIR$/LightUtilsSample/LightUtilsSample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwitchButtonLib/SwitchButtonLib.iml" filepath="$PROJECT_DIR$/SwitchButtonLib/SwitchButtonLib.iml" />
     </modules>
   </component>
 </project>

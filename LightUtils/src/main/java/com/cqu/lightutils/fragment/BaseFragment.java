@@ -186,4 +186,20 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    /**
+     * 根据提供的根视图和ID，从根视图中找出ID对应的视图
+     *
+     * @param mView
+     * @param id
+     * @param <T>
+     * @return
+     */
+    protected static final <T extends View> T findView(View mView, int id) {
+        try {
+            return (T) mView.findViewById(id);
+        } catch (ClassCastException ex) {
+            throw ex;
+        }
+    }
+
 }

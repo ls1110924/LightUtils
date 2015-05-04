@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/activity_listview_selector" >
+	<RelativeLayout 
+		android:layout_width="match_parent"
+		android:layout_height="45dp"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp" >
+		<TextView
+			android:id="@+id/item_activity_listview_with_switchbutton_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/nothing"
+			android:textColor="@color/activity_optiontext_textcolor"
+			android:textSize="20sp"
+			android:layout_centerVertical="true"
+			android:layout_alignParentLeft="true"
+			android:layout_marginLeft="20dp" />
+		<me.imid.view.SwitchButton
+			android:id="@+id/item_activity_listview_with_switchbutton_button"
+			android:layout_width="wrap_content"
+			android:layout_height="20dp"
+			android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="10dp" />
+
+	</RelativeLayout>
+</FrameLayout>

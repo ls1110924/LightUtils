@@ -11,12 +11,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.avast.android.dialogs.iface.ISimpleDialogListener;
 import com.cqu.lightutils.custominterface.ContentThemeInterface;
 import com.cqu.lightutils.custominterface.StatusBarThemeInterface;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -31,11 +34,13 @@ import java.lang.reflect.Field;
  * {@link com.cqu.lightutils.activity.BaseNoActionBarFragmentActivity},{@link com.cqu.lightutils.activity.BaseToolBarFragmentActivity}
  * 这四个子类
  */
-public abstract class BaseFragmentActivity extends ActionBarActivity {
+public abstract class BaseFragmentActivity extends ActionBarActivity implements ISimpleDialogListener {
 
     protected Context mContext;
 
     protected FragmentManager mFragmentManager;
+
+    protected LocalBroadcastManager mLocalBroadcastManager;
 
     protected Cursor mCursor;
 
@@ -70,29 +75,18 @@ public abstract class BaseFragmentActivity extends ActionBarActivity {
             mSystemBarManager.setStatusBarTintEnabled(true);
         }
 
+        mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
+
     }
 
-    /**
-     * 初始化一些必要的参数值
-     * 子类可按需自行覆写
-     */
-    protected void onInitParameter() {
+    @SuppressWarnings("unchecked")
+    protected final <T extends View> T findView(int id) {
+        try {
+            return (T) findViewById(id);
+        } catch (ClassCastException ex) {
+            throw ex;
+        }
     }
-
-    /**
-     * 设置布局
-     */
-    protected abstract void onSetContentView();
-
-    /**
-     * 查找必要的子视图控件
-     */
-    protected abstract void onFindViews();
-
-    /**
-     * 将数据与视图进行绑定，以展示数据
-     */
-    protected abstract void onBindContent();
 
     /**
      * Activity子类可根据主题设置配色时需调用此方法，可同时对StatusBar，
@@ -327,6 +321,23 @@ public abstract class BaseFragmentActivity extends ActionBarActivity {
             mCursor.close();
             mCursor = null;
         }
+    }
+
+    /**
+     * AndroidStyledDialog库的对话框回调方法，可使用其中的Dialog，若需对Dialog回调事件进行处理，可自行覆写这些方法
+     *
+     * @param i
+     */
+    @Override
+    public void onNegativeButtonClicked(int code) {
+    }
+
+    @Override
+    public void onNeutralButtonClicked(int code) {
+    }
+
+    @Override
+    public void onPositiveButtonClicked(int code) {
     }
 
 }

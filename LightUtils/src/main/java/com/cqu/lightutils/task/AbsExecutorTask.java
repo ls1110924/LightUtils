@@ -17,7 +17,7 @@ import java.lang.ref.SoftReference;
 public abstract class AbsExecutorTask implements Runnable {
 
     private final SoftReference<Context> mContextRef;
-    private final String mTaskName;
+    protected final String mTaskName;
     protected final ThreadExecutorWithKey mExecutor;
 
     protected final LocalBroadcastManager mBroadcastManager;
