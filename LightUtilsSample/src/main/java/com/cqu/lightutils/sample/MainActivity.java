@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.cqu.lightutils.activity.BaseActionBarFragmentActivityWithDrawer;
 import com.cqu.lightutils.sample.data.ParameterConfig;
 import com.cqu.lightutils.sample.fragment.MainDrawerFragment;
+import com.cqu.lightutils.sample.fragment.MultiItemListFragment;
 import com.cqu.lightutils.sample.fragment.SingleItemListFragment;
 import com.cqu.lightutils.utils.DialogUtils;
 
@@ -27,8 +28,11 @@ public class MainActivity extends BaseActionBarFragmentActivityWithDrawer {
     private MainDrawerFragment mDrawerFragment;
 
     private SingleItemListFragment mSingleItemFragment;
+    private MultiItemListFragment mMultiItemFragment;
 
     private ParameterConfig mParaConfig;
+
+    private int mFragmentIndex = -1;
 
     private boolean isExit = false;
 
@@ -39,6 +43,7 @@ public class MainActivity extends BaseActionBarFragmentActivityWithDrawer {
         mDrawerFragment = new MainDrawerFragment();
 
         mSingleItemFragment = new SingleItemListFragment();
+        mMultiItemFragment = new MultiItemListFragment();
     }
 
     @Override
@@ -79,6 +84,19 @@ public class MainActivity extends BaseActionBarFragmentActivityWithDrawer {
     protected void onDrawerClosed(ActionBar mActionBar) {
         String mTitle = mDrawerFragment.getTitle();
         mActionBar.setTitle(mTitle == null ? "SingleItemListTest" : mTitle);
+
+        if (mFragmentIndex != -1) {
+            switch (mFragmentIndex) {
+                case 0:
+                    replaceFragments(R.id.activity_main_content, mSingleItemFragment, "Content", 0, 0);
+                    break;
+                case 1:
+                    replaceFragments(R.id.activity_main_content, mMultiItemFragment, "Content", 0, 0);
+                    break;
+            }
+            mFragmentIndex = -1;
+        }
+
         supportInvalidateOptionsMenu();
     }
 
@@ -120,6 +138,7 @@ public class MainActivity extends BaseActionBarFragmentActivityWithDrawer {
 
         switch (item.getItemId()) {
             case R.id.main_menu_switchtheme:
+                startNewActivity(SwitchThemeActivity.class, R.anim.activity_slide_right_in, R.anim.activity_slide_left_out_part, false, null);
                 break;
             case R.id.main_menu_exit:
                 DialogUtils.buildSimpleDialog(mContext, mFragmentManager, R.string.activity_main_dialog_exit_title,
@@ -140,4 +159,10 @@ public class MainActivity extends BaseActionBarFragmentActivityWithDrawer {
                 break;
         }
     }
+
+    public void onDrawerItemSelected(int id) {
+        mDrawerLayout.closeDrawer(mDrawerFrame);
+        mFragmentIndex = id;
+    }
+
 }

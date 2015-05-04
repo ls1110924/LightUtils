@@ -1,14 +1,19 @@
 package com.cqu.lightutils.sample.fragment;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.cqu.lightutils.absutils.AbsFragmentHandler;
 import com.cqu.lightutils.fragment.BaseDynamicFragment;
+import com.cqu.lightutils.sample.LazyFragmentActivity;
+import com.cqu.lightutils.sample.MainActivity;
 import com.cqu.lightutils.sample.R;
+import com.cqu.lightutils.sample.SwitchThemeActivity;
 import com.cqu.lightutils.sample.adapter.MainDrawerFragmentListAdapter;
 import com.cqu.lightutils.sample.dataset.MainDrawerDataSet;
 
@@ -23,6 +28,8 @@ public class MainDrawerFragment extends BaseDynamicFragment {
 
     private CommonCallbackListener mCommonListener;
 
+    private DrawerFragHandler mHandler;
+
     @Override
     public void onCreateImpl(Bundle savedInstanceState) {
 
@@ -35,7 +42,11 @@ public class MainDrawerFragment extends BaseDynamicFragment {
         mListDataSet = new MainDrawerDataSet();
         mListDataSet.addItem("SingleItemListTest");
         mListDataSet.addItem("MultiItemListTest");
+        mListDataSet.addItem("SwitchThemeTest");
+        mListDataSet.addItem("LazyFragmentTest");
         mListAdapter = new MainDrawerFragmentListAdapter(mContext, mListDataSet);
+
+        mHandler = new DrawerFragHandler(this);
     }
 
     @Override
@@ -55,8 +66,8 @@ public class MainDrawerFragment extends BaseDynamicFragment {
 
     }
 
-    public String getTitle(){
-        if (mListDataSet==null||mListDataSet.size()==0){
+    public String getTitle() {
+        if (mListDataSet == null || mListDataSet.size() == 0) {
             return null;
         }
         return mListDataSet.getIndexItem(mListDataSet.getSelected());
@@ -65,15 +76,34 @@ public class MainDrawerFragment extends BaseDynamicFragment {
 
     private class CommonCallbackListener implements AdapterView.OnItemClickListener {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
             switch (position) {
                 case 0:
-                    break;
                 case 1:
+                    mListAdapter.notifyDataSetChanged();
+                    mListDataSet.setSelected(position);
+                    ((MainActivity) getActivity()).onDrawerItemSelected(position);
                     break;
+                case 2:
+                    startNewActivity(SwitchThemeActivity.class, R.anim.activity_slide_right_in, R.anim.activity_slide_left_out_part, false, null);
+                    break;
+                case 3:
+                    startNewActivity(LazyFragmentActivity.class, R.anim.activity_slide_right_in, R.anim.activity_slide_left_out_part, false, null);
                 default:
                     break;
             }
+        }
+    }
+
+    private static class DrawerFragHandler extends AbsFragmentHandler<MainDrawerFragment> {
+
+        public DrawerFragHandler(MainDrawerFragment mFragment) {
+            super(mFragment);
+        }
+
+        @Override
+        protected void handleMessage(MainDrawerFragment mFragment, Message msg, Bundle mBundle) {
+
         }
     }
 

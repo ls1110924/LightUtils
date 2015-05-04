@@ -8,8 +8,22 @@ import com.cqu.lightutils.adapter.multiitemtype.IViewProvider;
  */
 public class GeneralItemBean implements IItemBean{
 
+    private String mOption;
+
+    public GeneralItemBean( String mOption ){
+        this.mOption = mOption;
+    }
+
+    public String getOption() {
+        return mOption;
+    }
+
+    public void setOption( String mOption ){
+        this.mOption = mOption;
+    }
+
     @Override
     public Class<? extends IViewProvider> getViewProviderClass() {
-        return null;
+        return GeneralViewProvider.class;
     }
 }

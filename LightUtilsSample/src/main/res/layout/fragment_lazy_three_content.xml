@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="延迟同步加载式Fragment，首先Fragment先初始一个Loading布局，当Fragment第一次
+        可见的时候通知进行加载，加载结束后立即进行切换内容布局。无论是Loading视图还是Content视图
+        都进行了复用，用户还可以自定义是否当Fragment不可见时销毁视图以便节省内存。由于使用了同步加载
+        故适合于不是特别耗时的情况" />
+
+    <TextView
+        android:id="@+id/fragment_lazy_three_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>

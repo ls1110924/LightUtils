@@ -29,12 +29,12 @@ public class SingleItemListFragment extends BaseDynamicFragment {
 
     @Override
     protected void onFindViews(View mRootView) {
-        mListView = findView(mRootView, R.id.fragment_main_singleitem_list);
+        mListView = findView(mRootView, R.id.fragment_list_list);
     }
 
     @Override
     protected View onInflaterRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main_singleitem, container, false);
+        return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
     @Override

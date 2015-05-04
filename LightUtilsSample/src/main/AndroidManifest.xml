@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SwitchThemeActivity"
+            android:label="@string/activity_switchtheme_title"/>
+
+        <activity android:name=".LazyFragmentActivity"
+            android:label="@string/activity_lazyfragment_title"/>
     </application>
 
 </manifest>

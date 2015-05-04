@@ -71,7 +71,7 @@ public abstract class BaseActionBarFragmentActivity extends BaseFragmentActivity
      *
      * @param enable
      */
-    protected void setActionBarHomeEnable(boolean enable) {
+    protected final void setActionBarHomeEnable(boolean enable) {
         mActionBar.setDisplayHomeAsUpEnabled(enable);
     }
 

@@ -1,1 +1,1 @@
-include ':LightUtilsSample', ':LightUtils', ':SwitchButtonLib'
+include ':LightUtilsSample', ':LightUtils', ':SwitchButtonLib', ':MaterialishProgressLib'

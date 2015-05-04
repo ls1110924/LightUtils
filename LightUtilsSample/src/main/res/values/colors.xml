@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	
-	<color name="light_grey">#eee</color>
-	
-	<color name="light_gray">#DCDCDC</color>
-	<color name="activity_optiontext_textcolor">#474747</color>
-	
+
+    <color name="light_grey">#eee</color>
+
+    <color name="light_gray">#DCDCDC</color>
+    <color name="activity_optiontext_textcolor">#474747</color>
+
+    <color name="holo_blue_dark">#0099cc</color>
+    <color name="holo_yellow_dark">#ff8800</color>
+    <color name="holo_green_dark">#669900</color>
+    <color name="holo_purple_dark">#9933cc</color>
+    <color name="holo_red_dark">#cc0000</color>
+
 </resources>
