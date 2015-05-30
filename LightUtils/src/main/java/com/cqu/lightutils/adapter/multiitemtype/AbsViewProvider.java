@@ -62,12 +62,6 @@ public abstract class AbsViewProvider<T extends AbsViewHolder, P extends IItemBe
     protected abstract void findViews(View convertView, T mViewHolder);
 
     /**
-     * 根据提供的当前item的索引位置，自行填充ViewHolder中的内容视图控件的内容
-     *
-     * @param position
-     * @param mViewHolder
-     */
-    /**
      * 根据提供的当前item的索引位置，数据bean和回调监听器，自行填充ViewHolder中的内容视图控件的内容
      *
      * @param position
