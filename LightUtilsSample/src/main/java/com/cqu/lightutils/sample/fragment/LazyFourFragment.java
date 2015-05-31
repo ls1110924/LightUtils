@@ -69,7 +69,7 @@ public class LazyFourFragment extends BaseLazyAsynLoadFragment{
     @Override
     protected boolean onLoadedDataByAsyn() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
