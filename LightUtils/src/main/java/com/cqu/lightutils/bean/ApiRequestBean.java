@@ -51,7 +51,9 @@ public final class ApiRequestBean {
      * @return
      */
     public final String getGetUrl() {
-        StringBuilder mSB = new StringBuilder(mApiUrl).append('?');
+        StringBuilder mSB = new StringBuilder(mApiUrl);
+        if (mKeyValuePair.size() > 0)
+            mSB.append('?');
         boolean flag = false;
         for (NameValuePair m : mKeyValuePair) {
             if (flag)
