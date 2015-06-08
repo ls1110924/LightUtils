@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/activity_listview_selector" >
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="45dp"
+		android:padding="10dp" >
+		<TextView
+			android:id="@+id/item_activity_listview_general_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/nothing"
+			android:textColor="@color/activity_optiontext_textcolor"
+			android:textSize="20sp"
+			android:layout_centerVertical="true"
+			android:layout_alignParentLeft="true"
+			android:layout_marginLeft="20dp" />
+		<ImageView
+			android:id="@+id/item_activity_listview_general_arrow"
+			android:layout_width="15dp"
+			android:layout_height="15dp"
+			android:src="@mipmap/activity_arrow_normal"
+			android:scaleType="fitCenter"
+			android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="30dp"
+			android:contentDescription="@string/contentDescription" />
+
+	</RelativeLayout>
+</FrameLayout><!-- From: file:/D:/A_Shuai_WorkSpace/AndroidStudio_WorkSpace/LightUtils/LightUtilsSample/src/main/res/layout/item_activity_listview_general.xml -->

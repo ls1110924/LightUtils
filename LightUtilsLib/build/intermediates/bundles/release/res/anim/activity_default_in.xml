@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+	android:duration="300" >
+
+	<scale
+		android:fromXScale="140%"
+		android:toXScale="100%"
+		android:fromYScale="140%"
+		android:toYScale="100%"
+		android:pivotX="50%"
+		android:pivotY="50%" />
+	<alpha
+		android:fromAlpha="0.8"
+		android:toAlpha="1.0" />
+
+</set>
+<!-- From: file:/D:/A_Shuai_WorkSpace/AndroidStudio_WorkSpace/LightUtils/LightUtilsLib/src/main/res/anim/activity_default_in.xml -->

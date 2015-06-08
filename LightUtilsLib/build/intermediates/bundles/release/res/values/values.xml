@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/D:/A_Shuai_WorkSpace/AndroidStudio_WorkSpace/LightUtils/LightUtilsLib/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="app_name">LightUtils</string>
+    <string name="lightutils_dialog_cancel">取消</string>
+    <string name="lightutils_dialog_close">关闭</string>
+    <string name="lightutils_dialog_sure">确定</string>
+    <string name="lightutils_drawer_close">Close navigation drawer</string>
+    <string name="lightutils_drawer_open">Open navigation drawer</string>
+    <string name="lightutils_drawer_title">Navigation</string>
+</resources>

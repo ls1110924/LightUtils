@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sdl_text"
+    style="@style/SDL.TextView.ListItem" />
+<!-- From: file:/Users/vavra/dev/android-styled-dialogs/library/src/main/res/layout/sdl_list_item.xml --><!-- From: file:/D:/A_Shuai_WorkSpace/AndroidStudio_WorkSpace/LightUtils/LightUtilsSample/build/intermediates/exploded-aar/com.avast/android-styled-dialogs/2.2.0/res/layout/sdl_list_item.xml -->

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="静态Fragment会也复用根视图，即视图只会在onCreateView中构建一次，内容绑定也只会执行一次。只要这个Fragment不销毁，根视图就一直复用"/>
+
+    <ImageView
+        android:id="@+id/fragment_lazy_one_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/jingxin"/>
+
+</RelativeLayout><!-- From: file:/D:/A_Shuai_WorkSpace/AndroidStudio_WorkSpace/LightUtils/LightUtilsSample/src/main/res/layout/fragment_lazy_two.xml -->
