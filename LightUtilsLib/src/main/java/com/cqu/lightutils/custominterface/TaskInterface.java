@@ -6,6 +6,11 @@ package com.cqu.lightutils.custominterface;
  */
 public interface TaskInterface {
 
-    public String getName();
+    /**
+     * 返回一个Task的任务名
+     *
+     * @return 任务名字符串
+     */
+    String getName();
 
 }

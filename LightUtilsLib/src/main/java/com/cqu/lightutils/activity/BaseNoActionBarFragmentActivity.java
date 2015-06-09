@@ -11,10 +11,9 @@ import android.view.MenuItem;
 public abstract class BaseNoActionBarFragmentActivity extends BaseFragmentActivity {
 
     /**
-     * 不提供覆写{@link #onCreate(Bundle)}方法，若需覆写请覆写
-     * {@link #onCreateImpl(Bundle)}
+     * 不提供覆写本方法，若需覆写请覆写{@link #onCreateImpl(Bundle)}
      *
-     * @param savedInstanceState
+     * @param savedInstanceState 用于状态恢复的Bundle数据集
      */
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,7 @@ public abstract class BaseNoActionBarFragmentActivity extends BaseFragmentActivi
     /**
      * 用于替代{@link #onCreate(Bundle)}方法
      *
-     * @param savedInstanceState
+     * @param savedInstanceState 用于状态恢复的Bundle数据集
      */
     protected void onCreateImpl(Bundle savedInstanceState) {
     }
@@ -62,6 +61,9 @@ public abstract class BaseNoActionBarFragmentActivity extends BaseFragmentActivi
      * 不可覆写
      * 是为保证各个Activity子类的菜单事件回调方法的覆写一致性
      * 需监听另外的菜单项点击事件，请覆写{@link #onOptionsItemSelected(MenuItem, int)}方法
+     *
+     * @param item 发生选择的菜单项
+     * @return true表示事件被消费
      */
     @Override
     public final boolean onOptionsItemSelected(MenuItem item) {
@@ -72,9 +74,9 @@ public abstract class BaseNoActionBarFragmentActivity extends BaseFragmentActivi
      * 用户可覆写此方法进行监听菜单项点击事件
      * 用于替代{@link #onOptionsItemSelected(MenuItem)}方法
      *
-     * @param item
+     * @param item 发生选择的菜单项
      * @param flag 无意义
-     * @return
+     * @return true表示事件被消费
      */
     public boolean onOptionsItemSelected(MenuItem item, int flag) {
         return super.onOptionsItemSelected(item);

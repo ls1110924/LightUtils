@@ -16,7 +16,7 @@ public final class NetUtils {
     /**
      * 检查网络连接状态
      *
-     * @param mContext
+     * @param mContext 上下文
      * @return 返回是否网络可用
      */
     public static boolean getNetworkState(Context mContext) {

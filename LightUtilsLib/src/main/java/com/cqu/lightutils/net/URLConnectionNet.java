@@ -16,6 +16,7 @@ import static com.cqu.lightutils.constants.LightUtilsConstants.DEFAULT_TIMEOUT;
 
 /**
  * Created by A Shuai on 2015/5/3.
+ * 采用Java源生的URLConnection实现的访问网络的接口
  */
 public final class URLConnectionNet implements INet {
 

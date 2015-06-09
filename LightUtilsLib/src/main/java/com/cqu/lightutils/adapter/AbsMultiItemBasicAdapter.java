@@ -38,7 +38,7 @@ public abstract class AbsMultiItemBasicAdapter<Q extends OnGeneralListener> exte
         mResources = mContext.getResources();
 
         this.mOnGeneralListener = mOnGeneralListener;
-        mProviderMap = new HashMap<String, IViewProvider>();
+        mProviderMap = new HashMap<>();
         this.mItemBeanList = mItemBeanList;
         this.mProviderList = mProviderList;
 

@@ -15,10 +15,17 @@ import com.cqu.lightutils.custominterface.StatusBarThemeInterface;
 
 /**
  * Created by A Shuai on 2015/4/30.
+ * 本类为带有Drawer和ActionBar的页面的抽象基类
  */
 public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragmentActivity {
 
+    /**
+     * ActionBar动作栏对象
+     */
     protected ActionBar mActionBar;
+    /**
+     * 配合ActionBar对象实现的动画对象
+     */
     protected ActionBarDrawerToggle mActionBarToggle;
 
     /**
@@ -29,10 +36,9 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
     private BaseCommonCallbackListener mBaseCommonListener;
 
     /**
-     * 不提供覆写{@link #onCreate(Bundle)}方法，若需覆写请覆写
-     * {@link #onCreateImpl(Bundle)}
+     * 不提供覆写本方法，若需覆写请覆写{@link #onCreateImpl(Bundle)}
      *
-     * @param savedInstanceState
+     * @param savedInstanceState 用于状态恢复的Bundle数据集
      */
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
@@ -109,7 +115,7 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
     /**
      * 用于替代{@link #onCreate(Bundle)}方法
      *
-     * @param savedInstanceState
+     * @param savedInstanceState 用于状态恢复的Bundle数据集
      */
     protected void onCreateImpl(Bundle savedInstanceState) {
     }
@@ -117,7 +123,7 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
     /**
      * 子类可根据需要自行覆写此方法，表示对抽屉控件打开事件的监听
      *
-     * @param mActionBar
+     * @param mActionBar ActionBar对象
      */
     protected void onDrawerOpened(ActionBar mActionBar) {
     }
@@ -125,7 +131,7 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
     /**
      * 子类可根据需要自行覆写此方法，表示对抽屉控件关闭事件的监听
      *
-     * @param mActionBar
+     * @param mActionBar ActionBar对象
      */
     protected void onDrawerClosed(ActionBar mActionBar) {
     }
@@ -139,7 +145,7 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
     /**
      * 设置ActionBar的颜色
      *
-     * @param mColor
+     * @param mColor 设置ActionBar动作栏的配色
      */
     protected final void setActionBarColor(int mColor) {
         mActionBar.setBackgroundDrawable(new ColorDrawable(mColor));
@@ -148,6 +154,9 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
     /**
      * 不可覆写
      * 需监听另外的菜单项点击事件，请覆写{@link #onOptionsItemSelected(MenuItem, int)}方法
+     *
+     * @param item 发生选择的菜单项
+     * @return true表示事件被消费
      */
     @Override
     public final boolean onOptionsItemSelected(MenuItem item) {
@@ -168,9 +177,9 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
     /**
      * 用户可覆写此方法进行监听菜单项点击事件
      *
-     * @param item
-     * @param flag 无意义
-     * @return
+     * @param item 发生选择的菜单项
+     * @param flag 无意义，仅作区分的标志位
+     * @return true表示事件被消费
      */
     public boolean onOptionsItemSelected(MenuItem item, int flag) {
         return super.onOptionsItemSelected(item);

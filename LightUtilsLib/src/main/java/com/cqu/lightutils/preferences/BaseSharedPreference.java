@@ -19,11 +19,11 @@ public abstract class BaseSharedPreference {
     /**
      * 读取一个boolean值
      *
-     * @param mContext
+     * @param mContext     上下文
      * @param mName        文件名
-     * @param mKey
-     * @param defalutValue
-     * @return
+     * @param mKey         键
+     * @param defalutValue 默认值
+     * @return 结果值
      */
     public static boolean getBooleanValue(Context mContext, String mName, String mKey, boolean defalutValue) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(mName, Context.MODE_PRIVATE);
@@ -33,10 +33,10 @@ public abstract class BaseSharedPreference {
     /**
      * 存储一个boolean值
      *
-     * @param mContext
+     * @param mContext 上下文
      * @param mName    文件名
-     * @param mKey
-     * @param mValue
+     * @param mKey     键
+     * @param mValue   待设置值
      */
     public static void setBooleanValue(Context mContext, String mName, String mKey, boolean mValue) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(mName, Context.MODE_PRIVATE);
@@ -48,11 +48,11 @@ public abstract class BaseSharedPreference {
     /**
      * 读取一个int整型值
      *
-     * @param mContext
+     * @param mContext     上下文
      * @param mName        文件名
-     * @param mKey
-     * @param defalutValue
-     * @return
+     * @param mKey         键
+     * @param defalutValue 默认值
+     * @return 结果值
      */
     public static int getIntegerVaule(Context mContext, String mName, String mKey, int defalutValue) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(mName, Context.MODE_PRIVATE);
@@ -62,10 +62,10 @@ public abstract class BaseSharedPreference {
     /**
      * 存储一个int整型值
      *
-     * @param mContext
+     * @param mContext 上下文
      * @param mName    文件名
-     * @param mKey
-     * @param mValue
+     * @param mKey     键
+     * @param mValue   待设置值
      */
     public static void setIntegerValue(Context mContext, String mName, String mKey, int mValue) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(mName, Context.MODE_PRIVATE);
@@ -77,11 +77,11 @@ public abstract class BaseSharedPreference {
     /**
      * 读取一个String字符串
      *
-     * @param mContext
+     * @param mContext     上下文
      * @param mName        文件名
-     * @param mKey
-     * @param defalutValue
-     * @return
+     * @param mKey         键
+     * @param defalutValue 默认值
+     * @return 结果值
      */
     public static String getStringVaule(Context mContext, String mName, String mKey, String defalutValue) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(mName, Context.MODE_PRIVATE);
@@ -91,10 +91,10 @@ public abstract class BaseSharedPreference {
     /**
      * 存储一个String字符串
      *
-     * @param mContext
+     * @param mContext 上下文
      * @param mName    文件名
-     * @param mKey
-     * @param mValue
+     * @param mKey     键
+     * @param mValue   待设置值
      */
     public static void setStringValue(Context mContext, String mName, String mKey, String mValue) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(mName, Context.MODE_PRIVATE);

@@ -11,6 +11,8 @@ import java.lang.ref.SoftReference;
 /**
  * Created by A Shuai on 2015/4/29.
  * 子类若为Activity的内部类，需作为静态内部类。如果不是静态内部类则记得取消广播注册器
+ *
+ * @param <T> 类型参数T需至少为Activity的子类
  */
 public abstract class AbsBroadcastReceiver<T extends Activity> extends BroadcastReceiver {
 
@@ -18,7 +20,7 @@ public abstract class AbsBroadcastReceiver<T extends Activity> extends Broadcast
 
     public AbsBroadcastReceiver(T mActivity) {
         super();
-        mActivityRef = new SoftReference<T>(mActivity);
+        mActivityRef = new SoftReference<>(mActivity);
     }
 
     /**

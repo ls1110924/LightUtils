@@ -14,10 +14,10 @@ public final class DensityUtils {
     /**
      * 获取屏幕高度，以像素为单位
      *
-     * @param context
-     * @return
+     * @param context 上下文
+     * @return 屏幕高度
      */
-    public static final float getHeightInPx(Context context) {
+    public static float getHeightInPx(Context context) {
         final float height = context.getResources().getDisplayMetrics().heightPixels;
         return height;
     }
@@ -25,10 +25,10 @@ public final class DensityUtils {
     /**
      * 获取屏幕宽度，以像素为单位
      *
-     * @param context
-     * @return
+     * @param context 上下文
+     * @return 屏幕宽度
      */
-    public static final float getWidthInPx(Context context) {
+    public static float getWidthInPx(Context context) {
         final float width = context.getResources().getDisplayMetrics().widthPixels;
         return width;
     }
@@ -36,10 +36,10 @@ public final class DensityUtils {
     /**
      * 获取屏幕高度，以DP为单位
      *
-     * @param context
-     * @return
+     * @param context 上下文
+     * @return 屏幕高度，以DP为单位
      */
-    public static final int getHeightInDp(Context context) {
+    public static int getHeightInDp(Context context) {
         final float height = context.getResources().getDisplayMetrics().heightPixels;
         int heightInDp = px2dip(context, height);
         return heightInDp;
@@ -48,10 +48,10 @@ public final class DensityUtils {
     /**
      * 获取屏幕宽度，以DP为单位
      *
-     * @param context
-     * @return
+     * @param context 上下文
+     * @return 屏幕宽度，以DP为单位
      */
-    public static final int getWidthInDp(Context context) {
+    public static int getWidthInDp(Context context) {
         final float height = context.getResources().getDisplayMetrics().heightPixels;
         int widthInDp = px2dip(context, height);
         return widthInDp;
@@ -60,9 +60,9 @@ public final class DensityUtils {
     /**
      * 将DP单位转换为PX
      *
-     * @param context
-     * @param dpValue
-     * @return
+     * @param context 上下文
+     * @param dpValue 待转换的DP值
+     * @return 转换后的PX值
      */
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
@@ -72,9 +72,9 @@ public final class DensityUtils {
     /**
      * 将PX单位转换为DP单位
      *
-     * @param context
-     * @param pxValue
-     * @return
+     * @param context 上下文
+     * @param pxValue 待转换的PX值
+     * @return 转换后的DP值
      */
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
@@ -84,9 +84,9 @@ public final class DensityUtils {
     /**
      * 将SP单位转换为PX
      *
-     * @param context
-     * @param spValue
-     * @return
+     * @param context 上下文
+     * @param spValue 待转换的SP值
+     * @return 转换后的PX值
      */
     public static int sp2px(Context context, float spValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
@@ -96,9 +96,9 @@ public final class DensityUtils {
     /**
      * 将PX单位转换为SP
      *
-     * @param context
-     * @param pxValue
-     * @return
+     * @param context 上下文
+     * @param pxValue 待转换的PX值
+     * @return 转换后的SP值
      */
     public static int px2sp(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;

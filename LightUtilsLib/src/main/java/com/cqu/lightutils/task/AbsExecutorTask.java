@@ -17,13 +17,21 @@ import java.lang.ref.SoftReference;
 public abstract class AbsExecutorTask implements Runnable {
 
     private final SoftReference<Context> mContextRef;
+    /**
+     * 任务名
+     */
     protected final String mTaskName;
+    /**
+     * 线程池对象
+     */
     protected final ThreadExecutorWithKey mExecutor;
-
+    /**
+     * 本地广播管理器
+     */
     protected final LocalBroadcastManager mBroadcastManager;
 
     protected AbsExecutorTask(Context mContext, String mTaskName, ThreadExecutorWithKey mExecutor) {
-        mContextRef = new SoftReference<Context>(mContext.getApplicationContext());
+        mContextRef = new SoftReference<>(mContext.getApplicationContext());
         this.mTaskName = mTaskName;
         this.mExecutor = mExecutor;
 
@@ -52,7 +60,7 @@ public abstract class AbsExecutorTask implements Runnable {
     /**
      * 从线程池中移除当前任务
      */
-    private final void removeTask() {
+    private void removeTask() {
         mExecutor.removeTask(mTaskName);
     }
 
@@ -68,8 +76,8 @@ public abstract class AbsExecutorTask implements Runnable {
     /**
      * 发送普通广播
      *
-     * @param mAction
-     * @param mBundle
+     * @param mAction 广播动作
+     * @param mBundle 待传递的Bundle数据
      */
     protected final void sendBroadcast(String mAction, Bundle mBundle) {
         Context mContext = mContextRef.get();
@@ -85,8 +93,8 @@ public abstract class AbsExecutorTask implements Runnable {
     /**
      * 发送本地广播
      *
-     * @param mAction
-     * @param mBundle
+     * @param mAction 广播动作
+     * @param mBundle 待传递的Bundle数据
      */
     protected final void sendLocalBroadcast(String mAction, Bundle mBundle) {
         Intent mIntent = new Intent(mAction);

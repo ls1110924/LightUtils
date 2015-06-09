@@ -30,6 +30,7 @@ public class UncaughtExceptionHandlerUtil implements Thread.UncaughtExceptionHan
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         android.os.Process.killProcess(android.os.Process.myPid());

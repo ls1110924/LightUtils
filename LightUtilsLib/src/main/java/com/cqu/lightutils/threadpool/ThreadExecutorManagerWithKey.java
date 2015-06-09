@@ -14,6 +14,11 @@ public final class ThreadExecutorManagerWithKey {
 
     private static ThreadExecutorManagerWithKey mInstance;
 
+    /**
+     * 获取带任务键的线程池管理的单例对象的引用
+     *
+     * @return 带任务键的线程管理器的单例对应引用
+     */
     public static ThreadExecutorManagerWithKey getInstance() {
         if (mInstance == null) {
             synchronized (ThreadExecutorManagerWithKey.class) {
@@ -31,14 +36,14 @@ public final class ThreadExecutorManagerWithKey {
 
     private ThreadExecutorManagerWithKey() {
         mThreadPoolSize = DEFAULT_THREADPOOL_SIZE;
-        mExecutors = new HashMap<String, ThreadExecutorWithKey>();
+        mExecutors = new HashMap<>();
     }
 
     /**
      * 获得指定名字的线程池
      *
      * @param mExecutorName 要获取的线程池对象ID
-     * @return
+     * @return 带任务键的线程池对象
      */
     public ThreadExecutorWithKey getExecutor(String mExecutorName) {
         ThreadExecutorWithKey mService = mExecutors.get(mExecutorName);
@@ -57,8 +62,9 @@ public final class ThreadExecutorManagerWithKey {
     /**
      * 向指定名字的线程池中提交一个任务
      *
-     * @param mExecutorName
-     * @param mTask
+     * @param mExecutorName 线程池名
+     * @param mTaskName     任务名
+     * @param mTask         任务
      */
     public void execute(String mExecutorName, String mTaskName, Runnable mTask) {
         ThreadExecutorWithKey mService = getExecutor(mExecutorName);
@@ -68,7 +74,7 @@ public final class ThreadExecutorManagerWithKey {
     /**
      * 关闭指定名字的线程池
      *
-     * @param mExecutorName
+     * @param mExecutorName 线程池名
      */
     public void shutdown(String mExecutorName) {
         ThreadExecutorWithKey mService = mExecutors.get(mExecutorName);
@@ -93,10 +99,21 @@ public final class ThreadExecutorManagerWithKey {
         }
     }
 
+    /**
+     * 获取线程池的大小
+     *
+     * @return 线程池打大小
+     */
     public int getThreadPoolSize() {
         return mThreadPoolSize;
     }
 
+    /**
+     * '
+     * 设置线程池的大小
+     *
+     * @param mThreadPoolSize 待设置的线程池的大小
+     */
     public void setThreadPoolSize(int mThreadPoolSize) {
         this.mThreadPoolSize = mThreadPoolSize;
     }

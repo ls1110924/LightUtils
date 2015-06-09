@@ -9,7 +9,7 @@ import android.view.ViewGroup;
  * Created by A Shuai on 2015/4/30.
  * 此Fragment适用于视图内容为静态且占用内存不会特别多的情况，
  * 所以此Fragment只会初始化一遍内容视图，下一次调用{@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}方法
- * 就会复用上一次的内容视图
+ * 就会完整复用上一次的内容视图，不再重新填充内容
  */
 public abstract class BaseStaticFragment extends BaseFragment {
 

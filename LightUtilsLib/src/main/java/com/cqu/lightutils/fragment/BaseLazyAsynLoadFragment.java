@@ -30,7 +30,7 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
     private static final String EXECUTOR_NAME = "LIGHT_UTILS";
 
 
-    //当前Fragment为了实现懒加载，即当此Fragment完全可见的时候才会加载内容
+    //当前Fragment为了实现延迟加载，即当此Fragment完全可见的时候才会加载内容
     private FrameLayout mRootContainer;
     //为mRootContainer添加子视图所用的布局填充参数
     private ViewGroup.LayoutParams mContainerLayoutParams;
@@ -64,7 +64,7 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
      * 不提供覆写，需监听可见性的子类可覆写{@link #onFragmentVisible()}和
      * {@link #onFragmentInvisible()}方法
      *
-     * @param isVisibleToUser
+     * @param isVisibleToUser 当前Fragment的可见性
      */
     @Override
     public final void setUserVisibleHint(boolean isVisibleToUser) {
@@ -171,13 +171,13 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
 
     /**
      * 子类需对此方法进行覆写，进行数据处理
-     * 注意:此方法的执行回调位于子线程中，请务必不要更新UI线程中视图控件
+     * 注意:此方法的执行回调已经位于子线程中，请务必不要更新UI线程中视图控件
      * 子类不可最好不要手动调用本方法，子类可在此方法中进行耗时过程的处理，
      * 如果进行了耗时处理请务必将返回值置为true，表示数据初始化完毕，可以进行UI加载
      * 如果子类在此进行了异步处理，请将返回值置为false，表示此方法的回调并没有真正完成数据初始化，
      * 不可进行UI加载，此时子类应手动完成Handler事件发送，{@link #handlerDataLoadComplete()}方法
      *
-     * @return
+     * @return true表示异步加载完成，false表示数据未完成加载，此时子类应在完成数据异步加载后调用{@link #handlerDataLoadComplete()}方法
      */
     protected abstract boolean onLoadedDataByAsyn();
 
@@ -193,9 +193,9 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
      * 若子类提供了Loading视图，最好一并覆写了{@link #onFindLoadingViews(View)}方法和
      * {@link #onBindLoadingContent()}方法
      *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     * @param inflater           用于实例化layout文件的Inflater对象
+     * @param container          父容器
+     * @param savedInstanceState 等价于{@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}方法中的Bundle对象
      * @return 若子类覆写此方法，请务必不要返回空
      */
     protected View onInflaterRootLoadingView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -205,7 +205,7 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
     /**
      * 根据提供的Loading视图，查找必要的内容视图控件
      *
-     * @param mRootLoadingView
+     * @param mRootLoadingView Loading的根视图，用于查找Loading视图的子视图控件
      */
     protected void onFindLoadingViews(View mRootLoadingView) {
     }
@@ -231,7 +231,7 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
     /**
      * 在Fragment可见时进行判断是否载入数据
      */
-    private final void onLoadedData() {
+    private void onLoadedData() {
         if (!isPrepared)
             return;
         if (isLoaded) {
@@ -256,7 +256,10 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
         }
     }
 
-    private final void initContentViewAfterProcess() {
+    /**
+     * 异步数据加载已完成，可进行内容布局的加载和切换
+     */
+    private void initContentViewAfterProcess() {
         mRootView = onInflaterRootView(mInflater, mRootContainer, null);
         if (mRootView == null) {
             throw new NullPointerException("the root view should not be null");
@@ -274,7 +277,7 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
      * 对占用内存的数据进行清理和对视图控件引用的释放(否则内存不会释放)，
      * 这样此Fragment再次回到台前时会重新加载所有的数据
      *
-     * @return
+     * @return true表示子类选择了数据销毁，当Fragment不可见的时候，这样下次Fragment可见时会重新加载数据
      */
     protected boolean isNeedDestroy() {
         return false;
@@ -290,7 +293,7 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
     /**
      * 构造一个当然Fragment提供视图的容器，以便可以进行LazyLoad形式的内容替换
      *
-     * @return
+     * @return 用于包裹Loading根视图和内容根视图的容器
      */
     private FrameLayout createContainerLayout() {
         FrameLayout mLayout = new FrameLayout(mContext);
@@ -336,7 +339,7 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
         private final SoftReference<BaseLazyAsynLoadFragment> mFragmentRef;
 
         public AsynTask(BaseLazyAsynLoadFragment mFragment) {
-            mFragmentRef = new SoftReference<BaseLazyAsynLoadFragment>(mFragment);
+            mFragmentRef = new SoftReference<>(mFragment);
         }
 
         @Override
@@ -349,7 +352,7 @@ public abstract class BaseLazyAsynLoadFragment extends BaseFragment {
             }
         }
 
-        private final BaseLazyAsynLoadFragment getFragment() {
+        private BaseLazyAsynLoadFragment getFragment() {
             return mFragmentRef.get();
         }
     }

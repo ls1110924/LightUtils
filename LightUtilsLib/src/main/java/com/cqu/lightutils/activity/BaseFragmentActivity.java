@@ -34,18 +34,39 @@ import java.lang.reflect.Field;
  * {@link com.cqu.lightutils.activity.BaseNoActionBarFragmentActivity},{@link com.cqu.lightutils.activity.BaseToolBarFragmentActivity}
  * 这四个子类
  */
+@SuppressWarnings("deprecation")
 public abstract class BaseFragmentActivity extends ActionBarActivity implements ISimpleDialogListener {
 
+    /**
+     * 上下文对象 *
+     */
     protected Context mContext;
 
+    /**
+     * FragmentManager对象 *
+     */
     protected FragmentManager mFragmentManager;
 
+    /**
+     * LocalBroadcastManager对象 *
+     */
     protected LocalBroadcastManager mLocalBroadcastManager;
 
+    /**
+     * Cursor对象 *
+     */
     protected Cursor mCursor;
 
+    /**
+     * SystemBarTintManager对象，用于修改状态配色 *
+     */
     protected SystemBarTintManager mSystemBarManager;
 
+    /**
+     * 本框架的根类的FragmentActivity实现的基本公共内容初始化，用户可根据自定义自行覆写完成必要的自定义
+     *
+     * @param savedInstanceState 用于状态恢复的Bundle数据集
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +100,13 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
 
     }
 
+    /**
+     * 从当前布局中查询指定ID控件，消除了类型转换的麻烦
+     *
+     * @param id  指定控件的ID
+     * @param <T> 待进行类型转换的目标类型
+     * @return 返回指定ID和指定目标类型的视图
+     */
     @SuppressWarnings("unchecked")
     protected final <T extends View> T findView(int id) {
         try {
@@ -97,8 +125,8 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
      * 调用{@link #setStatusBarColor(int)}方法对StatusBar进行主题配色，
      * 调用{@link com.cqu.lightutils.activity.BaseActionBarFragmentActivity#setActionBarColor(int)}方法对ActionBar进行主题配色。
      *
-     * @param mStatusTheme
-     * @param mContentTheme
+     * @param mStatusTheme  状态栏主题对象
+     * @param mContentTheme 内容面板主题独享
      */
     protected final void setThemeColor(StatusBarThemeInterface mStatusTheme, ContentThemeInterface mContentTheme) {
         setStatusBarAndNavigationBarTheme(mStatusTheme);
@@ -107,6 +135,8 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
 
     /**
      * 子类可覆写此方法根据主题设置其他资源控件的配色
+     *
+     * @param mContentTheme 子类自行实现的内容主题对象
      */
     protected void setContentThemeColor(ContentThemeInterface mContentTheme) {
     }
@@ -128,7 +158,7 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
     /**
      * 根据提供的颜色设置状态栏的颜色
      *
-     * @param mColor
+     * @param mColor 指定的颜色值
      */
     protected final void setStatusBarColor(int mColor) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
@@ -146,7 +176,7 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
      * 高于4.4版本系统提供了修改状态栏颜色的api
      * 此方法只会在4.4系统上被调用
      *
-     * @param on
+     * @param on true表示设置状态类为透明，否则为非透明
      */
     @TargetApi(19)
     protected void setTranslucentStatus(boolean on) {
@@ -221,10 +251,10 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
      * 物理按键事件的处理方法，flag标示的形参不具有任何意义，
      * 仅作与{@link #onKeyDown(int, KeyEvent)}的区分
      *
-     * @param keyCode
-     * @param event
+     * @param keyCode 按键事件代码
+     * @param event   事件对象
      * @param flag    无意义，仅作为区分标志位
-     * @return
+     * @return true表示事件被处理
      */
     public boolean onKeyDown(int keyCode, KeyEvent event, int flag) {
         return super.onKeyDown(keyCode, event);
@@ -257,7 +287,7 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
      * @param target      要打开的Activity的Class对象
      * @param enterAnim   使用0表示不指定动画
      * @param exitAnim    使用0表示不指定动画
-     * @param requestCode
+     * @param requestCode 请求码
      * @param mBundle     给新打开的activity传递参数
      */
     public final void startNewActivityForResult(Class<? extends Activity> target, int enterAnim, int exitAnim, int requestCode, Bundle mBundle) {
@@ -283,8 +313,8 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
     /**
      * 开启一个普通的后台服务
      *
-     * @param target
-     * @param mBundle
+     * @param target  指定打开的Service的class对象
+     * @param mBundle 按需传递的数据Bundle
      */
     public final void startService(Class<? extends Service> target, Bundle mBundle) {
         Intent mIntent = new Intent(this, target);
@@ -297,8 +327,8 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
     /**
      * 关闭一个普通的后台服务
      *
-     * @param target
-     * @param mBundle
+     * @param target  指定关闭的Service的class对象
+     * @param mBundle 按需传递的数据Bundle
      */
     public final void stopService(Class<? extends Service> target, Bundle mBundle) {
         Intent mIntent = new Intent(this, target);
@@ -321,22 +351,27 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
 
     /**
      * AndroidStyledDialog库的对话框回调方法，可使用其中的Dialog，若需对Dialog回调事件进行处理，可自行覆写这些方法
+     * 取消按钮回调
      *
-     * @param code
+     * @param code 对话框代码
      */
     @Override
     public void onNegativeButtonClicked(int code) {
     }
 
     /**
-     * @param code
+     * 中立按钮回调
+     *
+     * @param code 对话框代码
      */
     @Override
     public void onNeutralButtonClicked(int code) {
     }
 
     /**
-     * @param code
+     * 确定按钮回调
+     *
+     * @param code 对话框代码
      */
     @Override
     public void onPositiveButtonClicked(int code) {

@@ -9,21 +9,21 @@ public interface StatusBarThemeInterface {
     /**
      * 获取状态栏的自定义颜色
      *
-     * @return
+     * @return 状态栏的配色
      */
     int getStatusBarColor();
 
     /**
      * 获取ActionBar栏的自定义颜色
      *
-     * @return
+     * @return 动作栏的配色
      */
     int getActionBarColor();
 
     /**
      * 获取ToolBar栏的自定义颜色
      *
-     * @return
+     * @return 工具栏的配色
      */
     int getToolBarColor();
 

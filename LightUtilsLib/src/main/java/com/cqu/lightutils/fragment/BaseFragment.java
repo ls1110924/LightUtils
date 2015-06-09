@@ -35,7 +35,7 @@ public abstract class BaseFragment extends Fragment {
      * 子类不可覆写此方法，以免破坏onCreate的初始化逻辑
      * 子类可覆写{@link #onCreateImpl(Bundle)}方法完成自定义的初始化逻辑
      *
-     * @param savedInstanceState
+     * @param savedInstanceState 用于恢复状态的Bundle数据集
      */
     @Override
     public final void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 子类可覆写此方法完成自定义的初始化逻辑
      *
-     * @param savedInstanceState
+     * @param savedInstanceState 用于恢复状态的Bundle数据集
      */
     public void onCreateImpl(Bundle savedInstanceState) {
     }
@@ -68,8 +68,8 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 请务必在此方法中返回此Fragment提供的根视图，返回结果不可为空
      *
-     * @param inflater
-     * @param container
+     * @param inflater           用于实例化layout文件的Inflater
+     * @param container          父容器
      * @param savedInstanceState 有可能为空，使用之前请先进行判断
      * @return 不可为空
      */
@@ -105,11 +105,11 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 以指定动画执行Fragment的替换操作
      *
-     * @param mContentId
-     * @param mFragment
-     * @param mTag
-     * @param enterAnim
-     * @param exitAnim
+     * @param mContentId 被替换Fragment的布局ID
+     * @param mFragment  替换的Fragment
+     * @param mTag       标签
+     * @param enterAnim  替换进入动画
+     * @param exitAnim   替换退出动画
      */
     protected final void replaceFragments(int mContentId, Fragment mFragment, String mTag, int enterAnim, int exitAnim) {
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
@@ -138,7 +138,7 @@ public abstract class BaseFragment extends Fragment {
      * @param target      要打开的Activity的Class对象
      * @param enterAnim   使用0表示不指定动画
      * @param exitAnim    使用0表示不指定动画
-     * @param requestCode
+     * @param requestCode 请求码
      * @param mBundle     给新的Activity传递的参数
      */
     protected final void startNewActivityForResult(Class<? extends Activity> target,
@@ -159,8 +159,8 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 开启一个普通的后台服务
      *
-     * @param target
-     * @param mBundle
+     * @param target  指定打开的Service的class对象
+     * @param mBundle 按需传递的数据Bundle
      */
     protected final void startService(Class<? extends Service> target, Bundle mBundle) {
         ((BaseFragmentActivity) getActivity()).startService(target, mBundle);
@@ -169,8 +169,8 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 关闭一个普通的后台服务
      *
-     * @param target
-     * @param mBundle
+     * @param target  指定关闭的Service的class对象
+     * @param mBundle 按需传递的数据Bundle
      */
     protected final void stopService(Class<? extends Service> target, Bundle mBundle) {
         ((BaseFragmentActivity) getActivity()).stopService(target, mBundle);
@@ -189,12 +189,13 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 根据提供的根视图和ID，从根视图中找出ID对应的视图
      *
-     * @param mView
-     * @param id
-     * @param <T>
-     * @return
+     * @param mView 待查找视图所在的容器视图
+     * @param id    待查找的视图ID
+     * @param <T>   待查找的视图类型
+     * @return 待查找的视图对象
      */
-    protected static final <T extends View> T findView(View mView, int id) {
+    @SuppressWarnings("unchecked")
+    protected static <T extends View> T findView(View mView, int id) {
         try {
             return (T) mView.findViewById(id);
         } catch (ClassCastException ex) {

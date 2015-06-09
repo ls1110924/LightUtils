@@ -2,6 +2,7 @@ package com.cqu.lightutils.constants;
 
 /**
  * Created by A Shuai on 2015/5/3.
+ * 常量类
  */
 public final class LightUtilsConstants {
 

@@ -8,6 +8,11 @@ package com.cqu.lightutils.adapter.multiitemtype;
  */
 public interface IItemBean {
 
-    public abstract Class<? extends IViewProvider> getViewProviderClass();
+    /**
+     * 类似于工厂模式，返回用于填充当前item数据bean的工厂类的class对象
+     *
+     * @return 返回一个工厂类的class对象
+     */
+    Class<? extends IViewProvider> getViewProviderClass();
 
 }

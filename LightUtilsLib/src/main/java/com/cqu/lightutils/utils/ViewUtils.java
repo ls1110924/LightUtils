@@ -8,7 +8,7 @@ import android.view.View;
  * Created by A Shuai on 2015/5/2.
  * 有关View的工具类
  */
-public class ViewUtils {
+public final class ViewUtils {
 
     private ViewUtils() {
     }
@@ -16,8 +16,8 @@ public class ViewUtils {
     /**
      * 根据指定的View，绘制一个同样的位图图像
      *
-     * @param view
-     * @return
+     * @param view 视图控件
+     * @return Bitmap对象
      */
     public static Bitmap buildBitmapFromView(View view) {
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);

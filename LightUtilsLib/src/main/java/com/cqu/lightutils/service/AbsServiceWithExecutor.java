@@ -31,6 +31,12 @@ public abstract class AbsServiceWithExecutor extends AbsService {
         dispatchTask(mTaskName, mPara);
     }
 
+    /**
+     * 子类对此方法覆写进行任务处理
+     *
+     * @param mTaskName 任务名
+     * @param mPara     传递的参数对象
+     */
     protected abstract void dispatchTask(String mTaskName, AbsGeneralTaskParameter mPara);
 
     @Override

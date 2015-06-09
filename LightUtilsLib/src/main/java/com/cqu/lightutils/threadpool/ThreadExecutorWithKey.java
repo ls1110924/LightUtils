@@ -28,14 +28,14 @@ public final class ThreadExecutorWithKey {
         lock = new Object();
 
         taskDistributor = Executors.newFixedThreadPool(mSize);
-        currentTastInThreadPool = new HashMap<String, Object>();
+        currentTastInThreadPool = new HashMap<>();
     }
 
     /**
      * 向线程池中提交一个任务
      *
      * @param mTaskName 任务名需唯一，此唯一性需要由客户端保证
-     * @param mRunnable
+     * @param mRunnable 任务
      * @return true 表示接受此任务;false 表示线程池中已有相同的任务
      */
     public boolean execute(String mTaskName, Runnable mRunnable) {
@@ -56,7 +56,7 @@ public final class ThreadExecutorWithKey {
      * 因客户端维持的Runnable任务已完成，从线程池的任务池中移除指定的任务名
      * 以便客户端可以继续添加类似的任务
      *
-     * @param mTaskName
+     * @param mTaskName 任务名
      */
     public void removeTask(String mTaskName) {
         synchronized (lock) {

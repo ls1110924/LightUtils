@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 /**
  * Created by A Shuai on 2015/4/30.
+ * 与普通的Fragment无异，仅仅实现了模板化填充内容和数据
  */
 public abstract class BaseNonReuseFragment extends BaseFragment {
 

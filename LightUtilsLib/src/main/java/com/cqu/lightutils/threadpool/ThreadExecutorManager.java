@@ -18,6 +18,11 @@ public final class ThreadExecutorManager {
 
     private static ThreadExecutorManager mInstance;
 
+    /**
+     * 获取线程池管理的单例对象的引用
+     *
+     * @return 线程管理器的单例对应引用
+     */
     public static ThreadExecutorManager getInstance() {
         if (mInstance == null) {
             synchronized (ThreadExecutorManager.class) {
@@ -35,14 +40,14 @@ public final class ThreadExecutorManager {
 
     private ThreadExecutorManager() {
         mThreadPoolSize = DEFAULT_THREADPOOL_SIZE;
-        mExecutors = new HashMap<String, ExecutorService>();
+        mExecutors = new HashMap<>();
     }
 
     /**
      * 获得指定名字的线程池
      *
      * @param mExecutorName 要获取的线程池对象ID
-     * @return
+     * @return 线程池对象
      */
     public ExecutorService getExecutor(String mExecutorName) {
         ExecutorService mService = mExecutors.get(mExecutorName);
@@ -61,8 +66,8 @@ public final class ThreadExecutorManager {
     /**
      * 向指定名字的线程池中提交一个任务
      *
-     * @param mExecutorName
-     * @param mTask
+     * @param mExecutorName 线程池名
+     * @param mTask         任务
      */
     public void execute(String mExecutorName, Runnable mTask) {
         ExecutorService mService = getExecutor(mExecutorName);
@@ -72,7 +77,7 @@ public final class ThreadExecutorManager {
     /**
      * 关闭指定名字的线程池
      *
-     * @param mExecutorName
+     * @param mExecutorName 线程池名
      */
     public void shutdown(String mExecutorName) {
         ExecutorService mService = mExecutors.get(mExecutorName);
@@ -101,7 +106,7 @@ public final class ThreadExecutorManager {
      * 设置线程池默认大小
      * 推荐3-5之间即可
      *
-     * @param mThreadPoolSize
+     * @param mThreadPoolSize 待设置的线程池的大小
      */
     public void setThreadPoolSize(int mThreadPoolSize) {
         this.mThreadPoolSize = mThreadPoolSize;

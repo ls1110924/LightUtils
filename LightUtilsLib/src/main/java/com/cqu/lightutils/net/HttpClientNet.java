@@ -24,6 +24,7 @@ import static com.cqu.lightutils.constants.LightUtilsConstants.DEFAULT_TIMEOUT;
 
 /**
  * Created by A Shuai on 2015/5/3.
+ * 采用HttpClient形式实现的访问网络的接口
  */
 public final class HttpClientNet implements INet {
 

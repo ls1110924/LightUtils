@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 /**
  * Created by A Shuai on 2015/4/30.
+ * 基础的复用根视图，但是可动态填充内容的Fragment
  */
 public abstract class BaseDynamicFragment extends BaseFragment {
 

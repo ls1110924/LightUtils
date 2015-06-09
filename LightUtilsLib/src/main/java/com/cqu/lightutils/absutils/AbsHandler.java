@@ -11,13 +11,15 @@ import java.lang.ref.SoftReference;
  * Created by A Shuai on 2015/4/29.
  * 子类如果作为Activity的内部类，则需使用静态内部类，
  * 覆写onMessageExecute方法进行处理消息即可
+ *
+ * @param <T> 类型参数T需至少为Activity的子类
  */
 public abstract class AbsHandler<T extends Activity> extends Handler {
 
     private final SoftReference<T> mActivityRef;
 
     public AbsHandler(T mActivity) {
-        mActivityRef = new SoftReference<T>(mActivity);
+        mActivityRef = new SoftReference<>(mActivity);
     }
 
     /**

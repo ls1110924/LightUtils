@@ -13,16 +13,16 @@ public interface IViewProvider<P extends IItemBean, Q extends OnGeneralListener>
     /**
      * 专用于一种布局类型的处理
      *
-     * @param position
-     * @param convertView
-     * @param parent
-     * @param mInflater
-     * @param mItemBean
+     * @param position         当前正在填充的item的view的坐标
+     * @param convertView      可被复用的内容视图
+     * @param parent           父容器
+     * @param mInflater        初始化layout文件的Inflater
+     * @param mItemBean        填充当前类型item的数据bean
      * @param mGeneralListener 用户可根据自己需求自定义一个超级接口，
      *                         该超级接口务必也继承{@link com.cqu.lightutils.adapter.multiitemtype.OnGeneralListener}接口
      * @return 不可返回空
      */
-    public abstract View getItemView(int position, View convertView, ViewGroup parent,
-                                     LayoutInflater mInflater, P mItemBean, Q mGeneralListener);
+    View getItemView(int position, View convertView, ViewGroup parent,
+                     LayoutInflater mInflater, P mItemBean, Q mGeneralListener);
 
 }
