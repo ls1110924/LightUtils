@@ -23,3 +23,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.avast:android-styled-dialogs:2.2.0'
 }
+
+apply from: 'bintray.gradle'
