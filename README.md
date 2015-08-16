@@ -27,6 +27,6 @@ repositories {
 }
 
 dependencies {
-	compile 'com.avast:android-styled-dialogs:2.2.0'
+	compile 'com.github.ls1110924.library:light-utils:1.0.0'
 }
 ```
