@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,10 +21,13 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
+import com.cqu.lightutils.absutils.AbsHandler;
 import com.cqu.lightutils.custominterface.ContentThemeInterface;
 import com.cqu.lightutils.custominterface.StatusBarThemeInterface;
+import com.cqu.lightutils.utils.FastClickDetectionUtil;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 
 /**
@@ -61,6 +65,20 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
      * SystemBarTintManager对象，用于修改状态配色 *
      */
     protected SystemBarTintManager mSystemBarManager;
+
+    //快速点击侦测工具对象
+    protected final FastClickDetectionUtil mFastClickDetectionUtil = FastClickDetectionUtil.getInstance();
+
+    /**
+     * 可供子类使用的Handler对象，子类可自行覆写{@link #handleMessage(Message, Bundle)}方法进行处理
+     */
+    protected final BaseUpdateHandler mBaseHandler = new BaseUpdateHandler(this);
+
+    /**
+     * 基础的点击事件回调监听器，子类可直接使用，同时根据情况覆写{@link #onViewClick(View)}
+     * 和{@link #onViewLongClick(View)}方法即可
+     */
+    protected final BaseCommonCallbackListener mBaseCommonListener = new BaseCommonCallbackListener(this);
 
     /**
      * 本框架的根类的FragmentActivity实现的基本公共内容初始化，用户可根据自定义自行覆写完成必要的自定义
@@ -100,6 +118,13 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mFastClickDetectionUtil.clear();
+    }
+
     /**
      * 从当前布局中查询指定ID控件，消除了类型转换的麻烦
      *
@@ -112,7 +137,7 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
         try {
             return (T) findViewById(id);
         } catch (ClassCastException ex) {
-            throw ex;
+            throw new ClassCastException(ex.getMessage());
         }
     }
 
@@ -350,8 +375,8 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
     }
 
     /**
-     * AndroidStyledDialog库的对话框回调方法，可使用其中的Dialog，若需对Dialog回调事件进行处理，可自行覆写这些方法
-     * 取消按钮回调
+     * <p>AndroidStyledDialog库的对话框回调方法，可使用其中的Dialog，若需对Dialog回调事件进行处理，可自行覆写这些方法</p>
+     * <p>取消按钮回调</p>
      *
      * @param code 对话框代码
      */
@@ -360,7 +385,7 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
     }
 
     /**
-     * 中立按钮回调
+     * Dialog中立按钮回调
      *
      * @param code 对话框代码
      */
@@ -369,12 +394,87 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
     }
 
     /**
-     * 确定按钮回调
+     * Dialog确定按钮回调
      *
      * @param code 对话框代码
      */
     @Override
     public void onPositiveButtonClicked(int code) {
+    }
+
+    /**
+     * 点击事件回调方法，子类可自行覆写处理。
+     *
+     * @param v 被点击的按钮
+     */
+    public void onViewClick(View v) {
+
+    }
+
+    /**
+     * 长按事件回调方法，子类可自行覆写处理。
+     *
+     * @param v 被长按的按钮
+     * @return true表示事件被处理，false为未处理
+     */
+    public boolean onViewLongClick(View v) {
+        return false;
+    }
+
+    /**
+     * 基类提供的常用的公共点击事件回调监听器
+     */
+    private static final class BaseCommonCallbackListener implements View.OnClickListener, View.OnLongClickListener {
+
+        private final WeakReference<BaseFragmentActivity> mActivityRef;
+
+        public BaseCommonCallbackListener(BaseFragmentActivity mActivity) {
+            mActivityRef = new WeakReference<>(mActivity);
+        }
+
+        @Override
+        public void onClick(View v) {
+            BaseFragmentActivity mActivity = mActivityRef.get();
+            if (mActivity == null) {
+                return;
+            }
+            //这里已经对按钮的快速点击进行了处理
+            if (mActivity.mFastClickDetectionUtil.isLegalClick(v)) {
+                mActivity.onViewClick(v);
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            BaseFragmentActivity mActivity = mActivityRef.get();
+            return mActivity != null && mActivity.onViewLongClick(v);
+        }
+
+    }
+
+    /**
+     * Handler对Message的回调处理方法，子类可自行覆写处理
+     *
+     * @param msg Message对象
+     * @param mBundle 可能为null，子类使用时需注意
+     */
+    public void handleMessage(Message msg, Bundle mBundle) {
+
+    }
+
+    /**
+     * 基类提供的一个Handler对象的内部实现类。
+     */
+    private static final class BaseUpdateHandler extends AbsHandler<BaseFragmentActivity> {
+
+        public BaseUpdateHandler(BaseFragmentActivity mActivity) {
+            super(mActivity);
+        }
+
+        @Override
+        protected void handleMessage(BaseFragmentActivity mActivity, Message msg, Bundle mBundle) {
+            mActivity.handleMessage(msg, mBundle);
+        }
     }
 
 }

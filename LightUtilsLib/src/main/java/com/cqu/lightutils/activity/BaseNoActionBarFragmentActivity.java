@@ -5,8 +5,8 @@ import android.view.MenuItem;
 
 /**
  * Created by A Shuai on 2015/4/30.
- * 不需要NavigationBar(包括ActionBar和ToolBar)的FragmentActivity的子类可继承本类
- * 切记当前类的子类Activity主题需使用NoActionBar样式
+ * <p>不需要NavigationBar(包括ActionBar和ToolBar)的FragmentActivity的子类可继承本类。</p>
+ * <p>切记当前类的子类Activity主题需使用NoActionBar样式。</p>
  */
 public abstract class BaseNoActionBarFragmentActivity extends BaseFragmentActivity {
 
