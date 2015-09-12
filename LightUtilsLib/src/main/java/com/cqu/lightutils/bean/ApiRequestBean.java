@@ -1,9 +1,8 @@
 package com.cqu.lightutils.bean;
 
 import com.cqu.lightutils.enumeration.NetOperation;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
+import com.cqu.lightutils.net.message.BasicNameValuePair;
+import com.cqu.lightutils.net.message.NameValuePair;
 
 import java.util.LinkedList;
 import java.util.List;

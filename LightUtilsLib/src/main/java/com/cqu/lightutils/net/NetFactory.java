@@ -1,7 +1,5 @@
 package com.cqu.lightutils.net;
 
-import android.os.Build;
-
 import com.cqu.lightutils.bean.AccessNetResultBean;
 import com.cqu.lightutils.bean.ApiRequestBean;
 
@@ -21,12 +19,7 @@ public final class NetFactory {
      * @return 访问网络的结果
      */
     public static AccessNetResultBean getNetResult(ApiRequestBean mRequestBean) {
-        INet mINet;
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.FROYO) {
-            mINet = new URLConnectionNet(mRequestBean);
-        } else {
-            mINet = new HttpClientNet(mRequestBean);
-        }
+        INet mINet = new URLConnectionNet(mRequestBean);
         return mINet.getResult();
     }
 
