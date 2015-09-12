@@ -24,6 +24,7 @@ import com.avast.android.dialogs.iface.ISimpleDialogListener;
 import com.cqu.lightutils.absutils.AbsHandler;
 import com.cqu.lightutils.custominterface.ContentThemeInterface;
 import com.cqu.lightutils.custominterface.StatusBarThemeInterface;
+import com.cqu.lightutils.listener.IFastClickDetect;
 import com.cqu.lightutils.utils.FastClickDetectionUtil;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -39,7 +40,7 @@ import java.lang.reflect.Field;
  * 这四个子类
  */
 @SuppressWarnings("deprecation")
-public abstract class BaseFragmentActivity extends ActionBarActivity implements ISimpleDialogListener {
+public abstract class BaseFragmentActivity extends ActionBarActivity implements ISimpleDialogListener, IFastClickDetect {
 
     /**
      * 上下文对象 *
@@ -400,6 +401,11 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
      */
     @Override
     public void onPositiveButtonClicked(int code) {
+    }
+
+    @Override
+    public boolean isLegalClick(View v) {
+        return mFastClickDetectionUtil.isLegalClick(v);
     }
 
     /**

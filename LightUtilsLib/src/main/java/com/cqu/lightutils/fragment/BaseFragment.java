@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,8 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cqu.lightutils.absutils.AbsFragmentHandler;
 import com.cqu.lightutils.activity.BaseFragmentActivity;
+import com.cqu.lightutils.listener.IFastClickDetect;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 
 /**
@@ -31,6 +35,20 @@ public abstract class BaseFragment extends Fragment {
 
     protected FragmentManager mFragmentManager;
 
+    //快速点击侦测接口
+    protected IFastClickDetect mIFastClickDetect;
+
+    /**
+     * 子类和配合覆写{@link #handleMessage(Message, Bundle)}方法使用本Handler对象
+     */
+    protected final BaseUpdateHandler mBaseHandler = new BaseUpdateHandler(this);
+
+    /**
+     * 基类Fragment提供了点击和长按回调监听器，子类可直接使用，并配合覆写{@link #onViewClick(View)}
+     * 和{@link #onViewLongClick(View)}方法即可使用。
+     */
+    protected final BaseCommonCallbackListener mBaseCommonListener = new BaseCommonCallbackListener(this);
+
     /**
      * 子类不可覆写此方法，以免破坏onCreate的初始化逻辑
      * 子类可覆写{@link #onCreateImpl(Bundle)}方法完成自定义的初始化逻辑
@@ -42,6 +60,9 @@ public abstract class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mContext = getActivity();
+        if (mContext != null && mContext instanceof IFastClickDetect) {
+            mIFastClickDetect = (IFastClickDetect) mContext;
+        }
 
         mFragmentManager = getChildFragmentManager();
 
@@ -86,6 +107,13 @@ public abstract class BaseFragment extends Fragment {
      * 将数据与视图控件进行绑定，以显示内容
      */
     protected abstract void onBindContent();
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mIFastClickDetect = null;
+    }
 
     /**
      * 处理使用ChildFragmentManager时的一些BUG
@@ -199,7 +227,84 @@ public abstract class BaseFragment extends Fragment {
         try {
             return (T) mView.findViewById(id);
         } catch (ClassCastException ex) {
-            throw ex;
+            throw new ClassCastException(ex.getMessage());
+        }
+    }
+
+    /**
+     * 点击事件回调方法，子类可自行覆写处理。
+     *
+     * @param v 被点击的按钮
+     */
+    public void onViewClick(View v) {
+
+    }
+
+    /**
+     * 长按事件回调方法，子类可自行覆写处理。
+     *
+     * @param v 被长按的按钮
+     * @return true表示事件被处理，false为未处理
+     */
+    public boolean onViewLongClick(View v) {
+        return false;
+    }
+
+    /**
+     * 基类提供的常用的公共点击事件回调监听器
+     */
+    private static final class BaseCommonCallbackListener implements View.OnClickListener, View.OnLongClickListener {
+
+        private final WeakReference<BaseFragment> mFragmentRef;
+
+        public BaseCommonCallbackListener(BaseFragment mFragment) {
+            mFragmentRef = new WeakReference<>(mFragment);
+        }
+
+        @Override
+        public void onClick(View v) {
+            BaseFragment mFragment = mFragmentRef.get();
+            if (mFragment == null) {
+                return;
+            }
+            if (mFragment.mIFastClickDetect == null) {
+                mFragment.onViewClick(v);
+            } else if (mFragment.mIFastClickDetect.isLegalClick(v)) {
+                //在这里对快速点击进行了处理
+                mFragment.onViewClick(v);
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            BaseFragment mFragment = mFragmentRef.get();
+            return mFragment != null && mFragment.onViewLongClick(v);
+        }
+
+    }
+
+    /**
+     * Handler对Message的回调处理方法，子类可自行覆写处理
+     *
+     * @param msg     Message对象
+     * @param mBundle 可能为null，子类使用时需注意
+     */
+    public void handleMessage(Message msg, Bundle mBundle) {
+
+    }
+
+    /**
+     * 基类提供的Handler实现类
+     */
+    public static final class BaseUpdateHandler extends AbsFragmentHandler<BaseFragment> {
+
+        public BaseUpdateHandler(BaseFragment mFragment) {
+            super(mFragment);
+        }
+
+        @Override
+        protected void handleMessage(BaseFragment mFragment, Message msg, Bundle mBundle) {
+            mFragment.handleMessage(msg, mBundle);
         }
     }
 
