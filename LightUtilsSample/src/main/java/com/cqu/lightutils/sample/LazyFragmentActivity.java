@@ -55,7 +55,7 @@ public class LazyFragmentActivity extends BaseActionBarFragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        setStatusBarAndNavigationBarTheme(ParameterConfig.getInstance().getMaterialTheme());
+        setMaterialThemeColor(ParameterConfig.getInstance().getMaterialTheme());
     }
 
     @Override

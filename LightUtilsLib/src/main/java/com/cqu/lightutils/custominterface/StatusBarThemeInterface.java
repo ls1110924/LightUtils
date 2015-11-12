@@ -4,6 +4,7 @@ package com.cqu.lightutils.custominterface;
  * Created by A Shuai on 2015/4/30.
  * 提供自定义状态栏和ActionBar颜色的实体类需实现的接口
  */
+@Deprecated
 public interface StatusBarThemeInterface {
 
     /**

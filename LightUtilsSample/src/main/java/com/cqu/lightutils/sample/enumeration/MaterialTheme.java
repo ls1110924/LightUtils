@@ -1,11 +1,12 @@
 package com.cqu.lightutils.sample.enumeration;
 
+import com.cqu.lightutils.custominterface.MaterialThemeInterface;
 import com.cqu.lightutils.custominterface.StatusBarThemeInterface;
 
 /**
  * Created by A Shuai on 2015/5/4.
  */
-public enum MaterialTheme implements StatusBarThemeInterface {
+public enum MaterialTheme implements StatusBarThemeInterface, MaterialThemeInterface {
 
 
     THEME_1(0, 0xFFD32F2F, 0xFFF44336),
@@ -41,6 +42,21 @@ public enum MaterialTheme implements StatusBarThemeInterface {
     @Override
     public int getToolBarColor() {
         return getActionBarColor();
+    }
+
+    @Override
+    public int getPrimaryColor() {
+        return mActionBarColor;
+    }
+
+    @Override
+    public int getPrimaryDarkColor() {
+        return mStatusBarColor;
+    }
+
+    @Override
+    public int getAccentColor() {
+        return 0;
     }
 
     public static MaterialTheme valueOf( int mType ){

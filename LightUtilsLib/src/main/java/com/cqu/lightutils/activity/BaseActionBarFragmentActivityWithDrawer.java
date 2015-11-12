@@ -142,6 +142,12 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
         setActionBarColor(mTheme.getActionBarColor());
     }
 
+    @Override
+    protected void colourByMaterialThemePrimaryColor(int mColor) {
+        super.colourByMaterialThemePrimaryColor(mColor);
+        setActionBarColor(mColor);
+    }
+
     /**
      * 设置ActionBar的颜色
      *

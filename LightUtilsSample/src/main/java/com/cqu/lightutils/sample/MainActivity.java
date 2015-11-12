@@ -77,7 +77,7 @@ public class MainActivity extends BaseActionBarFragmentActivityWithDrawer {
     @Override
     protected void onStart() {
         super.onStart();
-        setStatusBarAndNavigationBarTheme(mParaConfig.getMaterialTheme());
+        setMaterialThemeColor(mParaConfig.getMaterialTheme());
     }
 
     @Override

@@ -45,7 +45,7 @@ public class SwitchThemeActivity extends BaseActionBarFragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        setStatusBarAndNavigationBarTheme(mParaConfig.getMaterialTheme());
+        setMaterialThemeColor(mParaConfig.getMaterialTheme());
     }
 
 
@@ -71,7 +71,7 @@ public class SwitchThemeActivity extends BaseActionBarFragmentActivity {
                 mParaConfig.setMaterialTheme(MaterialTheme.THEME_1);
             }
 
-            setStatusBarAndNavigationBarTheme(mParaConfig.getMaterialTheme());
+            setMaterialThemeColor(mParaConfig.getMaterialTheme());
         }
 
     }

@@ -99,6 +99,12 @@ public abstract class BaseToolBarFragmentActivity extends BaseFragmentActivity {
         setToolBarColor(mTheme.getToolBarColor());
     }
 
+    @Override
+    protected void colourByMaterialThemePrimaryColor(int mColor) {
+        super.colourByMaterialThemePrimaryColor(mColor);
+        setToolBarColor(mColor);
+    }
+
     /**
      * 设置ActionBar的颜色
      *

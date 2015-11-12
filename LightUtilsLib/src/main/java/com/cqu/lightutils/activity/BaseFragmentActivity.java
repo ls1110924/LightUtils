@@ -23,6 +23,7 @@ import android.view.WindowManager;
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
 import com.cqu.lightutils.absutils.AbsHandler;
 import com.cqu.lightutils.custominterface.ContentThemeInterface;
+import com.cqu.lightutils.custominterface.MaterialThemeInterface;
 import com.cqu.lightutils.custominterface.StatusBarThemeInterface;
 import com.cqu.lightutils.listener.IFastClickDetect;
 import com.cqu.lightutils.utils.FastClickDetectionUtil;
@@ -143,20 +144,75 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
     }
 
     /**
-     * Activity子类可根据主题设置配色时需调用此方法，可同时对StatusBar，
+     * <p>Activity子类可根据主题设置配色时需调用此方法，可同时对StatusBar，
      * ActionBar，ToolBar以及其他内容进行配色。
      * 可以调用{@link #setStatusBarAndNavigationBarTheme(StatusBarThemeInterface)}
      * 方法单独对StatusBar和NavigationBar进行配色，
      * 调用{@link #setContentThemeColor(ContentThemeInterface)}方法对内容面板进行主题配色，
      * 调用{@link #setStatusBarColor(int)}方法对StatusBar进行主题配色，
-     * 调用{@link com.cqu.lightutils.activity.BaseActionBarFragmentActivity#setActionBarColor(int)}方法对ActionBar进行主题配色。
+     * 调用{@link com.cqu.lightutils.activity.BaseActionBarFragmentActivity#setActionBarColor(int)}方法对ActionBar进行主题配色。</p>
+     * <p>当前方法已弃用，请使用{@link #setThemeColor(MaterialThemeInterface, ContentThemeInterface)}作为替代方法</p>
      *
      * @param mStatusTheme  状态栏主题对象
      * @param mContentTheme 内容面板主题独享
      */
+    @Deprecated
     protected final void setThemeColor(StatusBarThemeInterface mStatusTheme, ContentThemeInterface mContentTheme) {
         setStatusBarAndNavigationBarTheme(mStatusTheme);
         setContentThemeColor(mContentTheme);
+    }
+
+    /**
+     * <p>用于替代{@link #setThemeColor(StatusBarThemeInterface, ContentThemeInterface)}方法。</p>
+     * 对当前界面进行主题着色，包括StatusBar，ActionBar，ToolBar，NavigationBar等以及一些自定义着色。
+     *
+     * @param mMaterialTheme MaterialTheme配色
+     * @param mContentTheme  自定义主题配色
+     */
+    protected final void setThemeColor(MaterialThemeInterface mMaterialTheme, ContentThemeInterface mContentTheme) {
+        setMaterialThemeColor(mMaterialTheme);
+        setContentThemeColor(mContentTheme);
+    }
+
+    /**
+     * 对当前页面进行Material着色
+     *
+     * @param mMaterialTheme 待着色使用的Material主题
+     */
+    protected final void setMaterialThemeColor(MaterialThemeInterface mMaterialTheme) {
+        colourByMaterialThemePrimaryColor(mMaterialTheme.getPrimaryColor());
+        colourByMaterialThemePrimaryDarkColor(mMaterialTheme.getPrimaryDarkColor());
+        colourByMaterialThemeAccentColor(mMaterialTheme.getAccentColor());
+    }
+
+    /**
+     * <p>使用Material主题的主调色彩进行着色。</p>
+     * <p>各子类自行覆写实现</p>
+     *
+     * @param mColor 待使用着色的颜色
+     */
+    protected void colourByMaterialThemePrimaryColor(int mColor) {
+        setNavigationBarColor(mColor);
+    }
+
+    /**
+     * <p>使用Material主题的主调暗色进行着色。</p>
+     * <p>各子类自行覆写实现</p>
+     *
+     * @param mColor 待使用着色的颜色
+     */
+    protected void colourByMaterialThemePrimaryDarkColor(int mColor) {
+        setStatusBarColor(mColor);
+    }
+
+    /**
+     * <p>使用Material主题的强调色彩进行着色。</p>
+     * <p>各子类自行覆写实现</p>
+     *
+     * @param mColor 待使用着色的颜色
+     */
+    protected void colourByMaterialThemeAccentColor(int mColor) {
+
     }
 
     /**
@@ -177,6 +233,7 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
      * @param mTheme 提供主题颜色的接口对象
      */
     @TargetApi(21)
+    @Deprecated
     protected void setStatusBarAndNavigationBarTheme(StatusBarThemeInterface mTheme) {
         setStatusBarColor(mTheme.getStatusBarColor());
     }
@@ -187,12 +244,23 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
      * @param mColor 指定的颜色值
      */
     protected final void setStatusBarColor(int mColor) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            return;
-        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             mSystemBarManager.setStatusBarTintColor(mColor);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(mColor);
+        }
+    }
+
+    /**
+     * 根据提供的颜色设置NavigationBar的颜色
+     *
+     * @param mColor 指定的颜色值
+     */
+    protected final void setNavigationBarColor(int mColor) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            mSystemBarManager.setNavigationBarTintColor(mColor);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(mColor);
         }
     }
 
@@ -461,7 +529,7 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
     /**
      * Handler对Message的回调处理方法，子类可自行覆写处理
      *
-     * @param msg Message对象
+     * @param msg     Message对象
      * @param mBundle 可能为null，子类使用时需注意
      */
     public void handleMessage(Message msg, Bundle mBundle) {
