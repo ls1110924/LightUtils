@@ -1,0 +1,28 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="LightUtilsTheme.BaseMaterial" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/lightutils_maretial_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/lightutils_maretial_colorPrimaryDark</item>
+        <item name="colorAccent">@color/lightutils_maretial_colorAccent</item>
+    </style>
+
+    <style name="LightUtilsTheme.BaseMaterial.BaseActionBar" parent="LightUtilsTheme.BaseMaterial">
+
+    </style>
+
+    <style name="LightUtilsTheme.BaseMaterial.BaseNoActionBar" parent="LightUtilsTheme.BaseMaterial">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="LightUtilsTheme.BaseMaterial.BaseDrawer" parent="LightUtilsTheme.BaseMaterial">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="LightUtilsTheme.BaseMaterial.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="LightUtilsTheme.BaseMaterial.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

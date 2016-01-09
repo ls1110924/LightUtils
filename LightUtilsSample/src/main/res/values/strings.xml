@@ -17,6 +17,8 @@
     <string name="nothing"></string>
     <string name="contentDescription"></string>
 
+    <string name="activity_listadapter_title">ListAdapterTest</string>
+
     <string name="activity_switchtheme_title">SwitchThemeTest</string>
 
     <string name="activity_lazyfragment_title">LazyFragmentTest</string>

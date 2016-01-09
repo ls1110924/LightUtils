@@ -10,6 +10,11 @@ public final class LightUtilsConstants {
     }
 
     /**
+     * 无效值
+     */
+    public static final int INVALID_VALUE = -1;
+
+    /**
      * 默认线程池大小
      */
     public static final int DEFAULT_THREADPOOL_SIZE = 3;

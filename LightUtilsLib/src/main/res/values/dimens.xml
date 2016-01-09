@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- FloatingActionButton的尺寸 -->
+    <dimen name="lightutils_fab_margin">16dp</dimen>
+    <dimen name="lightutils_fab_width">64dp</dimen>
+    <dimen name="lightutils_fab_height">64dp</dimen>
+
+    <!-- 状态栏高度 -->
+    <dimen name="lightutils_status_bar_height">25dp</dimen>
+
+    <!-- Toolbar的阴影高度 -->
+    <dimen name="lightutils_toolbar_elevation">4dp</dimen>
+</resources>

@@ -2,6 +2,7 @@ package com.cqu.lightutils.activity;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -21,7 +22,7 @@ public abstract class BaseToolBarFragmentActivity extends BaseFragmentActivity {
      */
     protected Toolbar mToolBar;
 
-    private ActionBar mActionBar;
+    protected ActionBar mActionBar;
 
     /**
      * 不提供覆写本方法，若需覆写请覆写{@link #onCreateImpl(Bundle)}
@@ -29,15 +30,12 @@ public abstract class BaseToolBarFragmentActivity extends BaseFragmentActivity {
      * @param savedInstanceState 用于状态恢复的Bundle数据集
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         onInitParameter();
         onSetContentView();
         mToolBar = onFindToolBarView();
-        if (mToolBar == null) {
-            throw new NullPointerException("ToolBar should not be null");
-        }
         setSupportActionBar(mToolBar);
         mActionBar = getSupportActionBar();
         onFindViews();
@@ -63,6 +61,7 @@ public abstract class BaseToolBarFragmentActivity extends BaseFragmentActivity {
      *
      * @return 不可为空
      */
+    @NonNull
     protected abstract Toolbar onFindToolBarView();
 
     /**

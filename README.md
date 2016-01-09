@@ -27,6 +27,6 @@ repositories {
 }
 
 dependencies {
-	compile 'com.github.ls1110924.library:light-utils:1.2.0'
+	compile 'com.github.ls1110924.library:light-utils:1.3.0'
 }
 ```

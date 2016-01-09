@@ -3,6 +3,7 @@ package com.cqu.lightutils.activity;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -33,7 +34,7 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
      */
     protected DrawerLayout mDrawerLayout;
 
-    private BaseCommonCallbackListener mBaseCommonListener;
+    private BaseActionbarDrawerActivityCommonCallbackListener mBaseCommonListener = new BaseActionbarDrawerActivityCommonCallbackListener();
 
     /**
      * 不提供覆写本方法，若需覆写请覆写{@link #onCreateImpl(Bundle)}
@@ -45,17 +46,15 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
         super.onCreate(savedInstanceState);
 
         mActionBar = getSupportActionBar();
+        if(mActionBar==null){
+            throw new NullPointerException("the ActionBar shouldn't be null");
+        }
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowHomeEnabled(false);
-
-        mBaseCommonListener = new BaseCommonCallbackListener();
 
         onInitParameter();
         onSetContentView();
         mDrawerLayout = onFindDrawerLayoutView();
-        if (mDrawerLayout == null) {
-            throw new NullPointerException("Please make sure DrawerLayout should not null");
-        }
         onFindViews();
 
         mDrawerLayout.setDrawerListener(mBaseCommonListener);
@@ -105,6 +104,7 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
      *
      * @return 返回不可为空
      */
+    @NonNull
     protected abstract DrawerLayout onFindDrawerLayoutView();
 
     /**
@@ -194,7 +194,7 @@ public abstract class BaseActionBarFragmentActivityWithDrawer extends BaseFragme
     /**
      * 抽屉状态事件回调监听器
      */
-    private class BaseCommonCallbackListener implements DrawerLayout.DrawerListener {
+    private class BaseActionbarDrawerActivityCommonCallbackListener implements DrawerLayout.DrawerListener {
 
         @Override
         public void onDrawerOpened(View drawerView) {

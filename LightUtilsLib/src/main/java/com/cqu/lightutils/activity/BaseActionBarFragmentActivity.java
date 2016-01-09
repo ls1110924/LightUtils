@@ -28,6 +28,9 @@ public abstract class BaseActionBarFragmentActivity extends BaseFragmentActivity
         super.onCreate(savedInstanceState);
 
         mActionBar = getSupportActionBar();
+        if (mActionBar == null) {
+            throw new IllegalStateException("Please select LightUtilsTheme.BaseMaterial.BaseActionBar theme or its child theme。");
+        }
 
         onInitParameter();
         onSetContentView();

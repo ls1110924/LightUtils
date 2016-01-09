@@ -11,17 +11,26 @@ public enum MaterialTheme implements StatusBarThemeInterface, MaterialThemeInter
 
     THEME_1(0, 0xFFD32F2F, 0xFFF44336),
 
-    THEME_2(1, 0xFF1976D2, 0xFF2196F3),;
+    THEME_2(1, 0xFF1976D2, 0xFF2196F3);
 
     private final int mType;
     /* 分别为状态栏颜色和ActionBar颜色 */
-    private final int mStatusBarColor;
-    private final int mActionBarColor;
+    private final int mPrimaryDarkColor;
+    private final int mPrimaryColor;
+    private final int mAccentColor;
 
-    private MaterialTheme( int mType, int mStatusBarColor, int mActionBarColor ){
+    private MaterialTheme( int mType, int mPrimaryDarkColor, int mPrimaryColor ){
         this.mType = mType;
-        this.mStatusBarColor = mStatusBarColor;
-        this.mActionBarColor = mActionBarColor;
+        this.mPrimaryDarkColor = mPrimaryDarkColor;
+        this.mPrimaryColor = mPrimaryColor;
+        this.mAccentColor = mPrimaryColor;
+    }
+
+    private MaterialTheme( int mType, int mPrimaryDarkColor, int mPrimaryColor, int mAccentColor ){
+        this.mType = mType;
+        this.mPrimaryDarkColor = mPrimaryDarkColor;
+        this.mPrimaryColor = mPrimaryColor;
+        this.mAccentColor = mAccentColor;
     }
 
     public int getType() {
@@ -31,12 +40,12 @@ public enum MaterialTheme implements StatusBarThemeInterface, MaterialThemeInter
 
     @Override
     public int getStatusBarColor() {
-        return mStatusBarColor;
+        return mPrimaryDarkColor;
     }
 
     @Override
     public int getActionBarColor() {
-        return mActionBarColor;
+        return mPrimaryColor;
     }
 
     @Override
@@ -46,17 +55,17 @@ public enum MaterialTheme implements StatusBarThemeInterface, MaterialThemeInter
 
     @Override
     public int getPrimaryColor() {
-        return mActionBarColor;
+        return mPrimaryColor;
     }
 
     @Override
     public int getPrimaryDarkColor() {
-        return mStatusBarColor;
+        return mPrimaryDarkColor;
     }
 
     @Override
     public int getAccentColor() {
-        return 0;
+        return mAccentColor;
     }
 
     public static MaterialTheme valueOf( int mType ){

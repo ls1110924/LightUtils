@@ -1,0 +1,18 @@
+<resources>
+
+    <style name="LightUtilsTheme.BaseMaterial.BaseActionBar" parent="LightUtilsTheme.BaseMaterial">
+
+    </style>
+
+    <style name="LightUtilsTheme.BaseMaterial.BaseNoActionBar" parent="LightUtilsTheme.BaseMaterial">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="LightUtilsTheme.BaseMaterial.BaseDrawer" parent="LightUtilsTheme.BaseMaterial">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>

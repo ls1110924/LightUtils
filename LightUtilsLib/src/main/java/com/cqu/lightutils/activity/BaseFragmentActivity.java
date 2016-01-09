@@ -13,7 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -41,7 +41,7 @@ import java.lang.reflect.Field;
  * 这四个子类
  */
 @SuppressWarnings("deprecation")
-public abstract class BaseFragmentActivity extends ActionBarActivity implements ISimpleDialogListener, IFastClickDetect {
+public abstract class BaseFragmentActivity extends AppCompatActivity implements ISimpleDialogListener, IFastClickDetect {
 
     /**
      * 上下文对象 *
@@ -245,10 +245,32 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
      */
     protected final void setStatusBarColor(int mColor) {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            mSystemBarManager.setStatusBarTintColor(mColor);
+            setStatusBarColorOnKitkat(mColor);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(mColor);
+            setStatusBarColorOnGreaterEqualLollipop(mColor);
         }
+    }
+
+    /**
+     * 对Android4.4版本系统的StatusBar进行着色
+     *
+     * @param mColor 指定的着色颜色值
+     */
+    @TargetApi(19)
+    protected final void setStatusBarColorOnKitkat(int mColor) {
+        mSystemBarManager.setStatusBarTintColor(mColor);
+    }
+
+    /**
+     * 对大于等于Android5.0版本系统的StatusBar进行着色。
+     * <p>注：当前该方法的实现逻辑是针对非透明状态栏的处理，
+     * 如若子类使用了透明状态栏主题，该子类需对逻辑状态栏的着色进行单独处理。</p>
+     *
+     * @param mColor
+     */
+    @TargetApi(21)
+    protected void setStatusBarColorOnGreaterEqualLollipop(int mColor) {
+        getWindow().setStatusBarColor(mColor);
     }
 
     /**
@@ -295,7 +317,11 @@ public abstract class BaseFragmentActivity extends ActionBarActivity implements 
      * @param exitAnim   替换退出动画
      */
     protected final void replaceFragments(int mContentId, Fragment mFragment, String mTag, int enterAnim, int exitAnim) {
+        Fragment mOldFragment = mFragmentManager.findFragmentByTag(mTag);
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        if (mOldFragment != null) {
+            mFragmentTransaction.remove(mOldFragment);
+        }
         mFragmentTransaction.setCustomAnimations(enterAnim, exitAnim);
         mFragmentTransaction.replace(mContentId, mFragment, mTag);
         mFragmentTransaction.commit();

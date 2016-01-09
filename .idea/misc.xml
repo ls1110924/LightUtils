@@ -28,6 +28,7 @@
     </option>
   </component>
   <component name="ProjectDictionaryState">
+    <dictionary name="lishuai.ls" />
     <dictionary name="A Shuai" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -40,7 +41,7 @@
         </expanded-state>
         <selected-state>
           <State>
-            <id>Android</id>
+            <id>Properties Files</id>
           </State>
         </selected-state>
       </profile-state>
@@ -62,19 +63,7 @@
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ScopeChooserConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\lishuai.ls\AppData\Roaming\Subversion</configuration>
   </component>
 </project>

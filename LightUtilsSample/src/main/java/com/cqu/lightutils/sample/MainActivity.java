@@ -119,7 +119,6 @@ public class MainActivity extends BaseActionBarFragmentActivityWithDrawer {
         } else {
             finish(R.anim.activity_default_in, R.anim.activity_default_out);
         }
-
         return true;
     }
 

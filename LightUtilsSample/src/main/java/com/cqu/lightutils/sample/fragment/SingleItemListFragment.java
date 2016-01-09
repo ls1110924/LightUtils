@@ -23,21 +23,6 @@ public class SingleItemListFragment extends BaseDynamicFragment {
     private MainSingleItemFragListAdapter mListAdapter;
 
     @Override
-    protected void onBindContent() {
-        mListView.setAdapter(mListAdapter);
-    }
-
-    @Override
-    protected void onFindViews(View mRootView) {
-        mListView = findView(mRootView, R.id.fragment_list_list);
-    }
-
-    @Override
-    protected View onInflaterRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list, container, false);
-    }
-
-    @Override
     protected void onInitParameter() {
 
         mListDataSet = new ArrayList<>();
@@ -46,5 +31,20 @@ public class SingleItemListFragment extends BaseDynamicFragment {
         }
         mListAdapter = new MainSingleItemFragListAdapter(mContext, mListDataSet);
 
+    }
+
+    @Override
+    protected View onInflaterRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_list, container, false);
+    }
+
+    @Override
+    protected void onFindViews(View mRootView) {
+        mListView = findView(mRootView, R.id.fragment_list_list);
+    }
+
+    @Override
+    protected void onBindContent() {
+        mListView.setAdapter(mListAdapter);
     }
 }

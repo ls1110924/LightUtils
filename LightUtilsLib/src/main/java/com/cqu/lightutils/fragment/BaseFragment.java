@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -60,9 +61,6 @@ public abstract class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mContext = getActivity();
-        if (mContext != null && mContext instanceof IFastClickDetect) {
-            mIFastClickDetect = (IFastClickDetect) mContext;
-        }
 
         mFragmentManager = getChildFragmentManager();
 
@@ -94,6 +92,7 @@ public abstract class BaseFragment extends Fragment {
      * @param savedInstanceState 有可能为空，使用之前请先进行判断
      * @return 不可为空
      */
+    @NonNull
     protected abstract View onInflaterRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
     /**
@@ -107,6 +106,17 @@ public abstract class BaseFragment extends Fragment {
      * 将数据与视图控件进行绑定，以显示内容
      */
     protected abstract void onBindContent();
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context != null && context instanceof IFastClickDetect) {
+            mIFastClickDetect = (IFastClickDetect) context;
+        } else {
+            mIFastClickDetect = null;
+        }
+    }
 
     @Override
     public void onDestroy() {
@@ -140,7 +150,11 @@ public abstract class BaseFragment extends Fragment {
      * @param exitAnim   替换退出动画
      */
     protected final void replaceFragments(int mContentId, Fragment mFragment, String mTag, int enterAnim, int exitAnim) {
+        Fragment mOldFragment = mFragmentManager.findFragmentByTag(mTag);
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        if (mOldFragment != null) {
+            mFragmentTransaction.remove(mOldFragment);
+        }
         mFragmentTransaction.setCustomAnimations(enterAnim, exitAnim);
         mFragmentTransaction.replace(mContentId, mFragment, mTag);
         mFragmentTransaction.commit();

@@ -1,5 +1,6 @@
 package com.cqu.lightutils.sample.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -10,10 +11,8 @@ import android.widget.ListView;
 
 import com.cqu.lightutils.absutils.AbsFragmentHandler;
 import com.cqu.lightutils.fragment.BaseDynamicFragment;
-import com.cqu.lightutils.sample.LazyFragmentActivity;
-import com.cqu.lightutils.sample.MainActivity;
+import com.cqu.lightutils.listener.OnNavigationItemSelectedListener;
 import com.cqu.lightutils.sample.R;
-import com.cqu.lightutils.sample.SwitchThemeActivity;
 import com.cqu.lightutils.sample.adapter.MainDrawerFragmentListAdapter;
 import com.cqu.lightutils.sample.dataset.MainDrawerDataSet;
 
@@ -30,6 +29,8 @@ public class MainDrawerFragment extends BaseDynamicFragment {
 
     private DrawerFragHandler mHandler;
 
+    private OnNavigationItemSelectedListener mNavigationListener;
+
     @Override
     public void onCreateImpl(Bundle savedInstanceState) {
 
@@ -40,6 +41,7 @@ public class MainDrawerFragment extends BaseDynamicFragment {
         mCommonListener = new CommonCallbackListener();
 
         mListDataSet = new MainDrawerDataSet();
+        mListDataSet.addItem("MaterialDrawerTest");
         mListDataSet.addItem("SingleItemListTest");
         mListDataSet.addItem("MultiItemListTest");
         mListDataSet.addItem("SwitchThemeTest");
@@ -66,6 +68,25 @@ public class MainDrawerFragment extends BaseDynamicFragment {
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context != null && context instanceof OnNavigationItemSelectedListener) {
+            mNavigationListener = (OnNavigationItemSelectedListener) context;
+        } else {
+            mNavigationListener = null;
+        }
+
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        mNavigationListener = null;
+    }
+
     public String getTitle() {
         if (mListDataSet == null || mListDataSet.size() == 0) {
             return null;
@@ -77,20 +98,8 @@ public class MainDrawerFragment extends BaseDynamicFragment {
     private class CommonCallbackListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-            switch (position) {
-                case 0:
-                case 1:
-                    mListAdapter.notifyDataSetChanged();
-                    mListDataSet.setSelected(position);
-                    ((MainActivity) getActivity()).onDrawerItemSelected(position);
-                    break;
-                case 2:
-                    startNewActivity(SwitchThemeActivity.class, R.anim.activity_slide_right_in, R.anim.activity_slide_left_out_part, false, null);
-                    break;
-                case 3:
-                    startNewActivity(LazyFragmentActivity.class, R.anim.activity_slide_right_in, R.anim.activity_slide_left_out_part, false, null);
-                default:
-                    break;
+            if (mNavigationListener != null) {
+                mNavigationListener.onNavigationItemSelected(position);
             }
         }
     }
