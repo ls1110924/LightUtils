@@ -8,19 +8,19 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/LightUtilsLib" />
-            <option value="$PROJECT_DIR$/LightUtilsSample" />
-            <option value="$PROJECT_DIR$/MaterialishProgressLib" />
-            <option value="$PROJECT_DIR$/SwitchButtonLib" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/lightutilslib" />
+            <option value="$PROJECT_DIR$/materialishprogresslib" />
+            <option value="$PROJECT_DIR$/switchbuttonlib" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/LightUtilsLib" />
-            <option value="$PROJECT_DIR$/LightUtilsSample" />
-            <option value="$PROJECT_DIR$/MaterialishProgressLib" />
-            <option value="$PROJECT_DIR$/SwitchButtonLib" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/lightutilslib" />
+            <option value="$PROJECT_DIR$/materialishprogresslib" />
+            <option value="$PROJECT_DIR$/switchbuttonlib" />
           </set>
         </option>
       </GradleProjectSettings>

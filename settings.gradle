@@ -1,7 +1,4 @@
-include ':LightUtilsSample'
-include ':LightUtilsLib'
-include ':MaterialishProgressLib'
-include ':SwitchButtonLib'
+include ':app', ':materialishprogresslib', ':lightutilslib', ':switchbuttonlib'
 
-def submoduleProject = project(':LightUtilsLib')
+def submoduleProject = project(':lightutilslib')
 submoduleProject.name = 'light-utils'

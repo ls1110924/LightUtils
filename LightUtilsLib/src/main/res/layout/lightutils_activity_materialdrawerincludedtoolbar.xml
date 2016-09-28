@@ -45,7 +45,7 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <com.cqu.lightutils.widget.ScrimInsetsFrameLayout
+    <com.yunxian.lightutils.lib.widget.ScrimInsetsFrameLayout
         android:id="@+id/lightutils_activity_matedrawertoolbar_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
