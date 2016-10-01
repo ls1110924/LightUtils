@@ -3,10 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LightUtils.iml" filepath="$PROJECT_DIR$/LightUtils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lightutilslib/light-utils.iml" filepath="$PROJECT_DIR$/lightutilslib/light-utils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/materialishprogresslib/materialishprogresslib.iml" filepath="$PROJECT_DIR$/materialishprogresslib/materialishprogresslib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/switchbuttonlib/switchbuttonlib.iml" filepath="$PROJECT_DIR$/switchbuttonlib/switchbuttonlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LightUtilsSample/LightUtilsSample.iml" filepath="$PROJECT_DIR$/LightUtilsSample/LightUtilsSample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MaterialishProgressLib/MaterialishProgressLib.iml" filepath="$PROJECT_DIR$/MaterialishProgressLib/MaterialishProgressLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwitchButtonLib/SwitchButtonLib.iml" filepath="$PROJECT_DIR$/SwitchButtonLib/SwitchButtonLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LightUtilsLib/light-utils.iml" filepath="$PROJECT_DIR$/LightUtilsLib/light-utils.iml" />
     </modules>
   </component>
 </project>
